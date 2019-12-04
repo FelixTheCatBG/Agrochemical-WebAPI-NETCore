@@ -40,6 +40,110 @@ namespace AgrochemicalAPI.Data
             context.Packages.AddRange(packages);
             context.SaveChanges();
 
+            var cropCategories = new[]
+            {
+                new CropCategory() {Name="Corns"},
+                new CropCategory() {Name="Trees"},
+                new CropCategory() {Name="Corn"},
+
+            };
+
+            context.CropCategories.AddRange(cropCategories);
+            context.SaveChanges();
+
+
+            //Seeding with Crops
+            var crops = new[]
+            {
+                 new Crop() {Name = "Tomatoes", CropCategory=cropCategories[0] },
+                 new Crop() {Name = "Corn", CropCategory=cropCategories[0] },
+                 new Crop() {Name = "Peppers", CropCategory=cropCategories[1] }, 
+                 new Crop() {Name = "Apples", CropCategory=cropCategories[2] }
+            };
+
+            context.Crops.AddRange(crops);
+            context.SaveChanges();
+
+            //Seeding with Crops
+            var illnesses = new[]
+            {
+                 new Illness() {Name = "WhiteIllness", Description="Description1" },
+                 new Illness() {Name = "YellowIllness", Description="Description2" },
+                 new Illness() {Name = "RedIllness", Description="Description3" },
+                 new Illness() {Name = "BlackIllness", Description="Description4" }
+            };
+
+            context.Illnesses.AddRange(illnesses);
+            context.SaveChanges();
+
+            //Seeding with Crops
+            var symptoms = new[]
+            {
+                 new Symptom() {Name = "a", Description="Description1" },
+                 new Symptom() {Name = "b", Description="Description2" },
+                 new Symptom() {Name = "c", Description="Description3" },
+                 new Symptom() {Name = "d", Description="Description1" },
+            };
+
+            context.Symptoms.AddRange(symptoms);
+            context.SaveChanges();
+
+            var illnessSymptoms = new[]
+{
+                new IllnessSymptom(){ Illness = illnesses[0], Symptom = symptoms[0] },
+                new IllnessSymptom(){ Illness = illnesses[0], Symptom = symptoms[1] },
+                new IllnessSymptom(){ Illness = illnesses[0], Symptom = symptoms[2] },
+                new IllnessSymptom(){ Illness = illnesses[0], Symptom = symptoms[3] },
+                new IllnessSymptom(){ Illness = illnesses[1], Symptom = symptoms[0] },
+                new IllnessSymptom(){ Illness = illnesses[1], Symptom = symptoms[1] },
+                new IllnessSymptom(){ Illness = illnesses[1], Symptom = symptoms[2] },
+                new IllnessSymptom(){ Illness = illnesses[2], Symptom = symptoms[1] },
+                new IllnessSymptom(){ Illness = illnesses[2], Symptom = symptoms[2] },
+                new IllnessSymptom(){ Illness = illnesses[2], Symptom = symptoms[3] }
+
+            };
+            context.IllnessSymptoms.AddRange(illnessSymptoms);
+            context.SaveChanges();
+
+            var cropProducts = new[]
+            {
+                new CropProduct(){ Product = products[0], Crop = crops[0]},
+                new CropProduct(){ Product = products[0], Crop = crops[1]},
+                new CropProduct(){ Product = products[0], Crop = crops[2]},
+                new CropProduct(){ Product = products[1], Crop = crops[0]},
+                new CropProduct(){ Product = products[2], Crop = crops[0]},
+                new CropProduct(){ Product = products[2], Crop = crops[1]},
+
+            };
+
+            context.CropProducts.AddRange(cropProducts);
+            context.SaveChanges();
+
+            var cropIllnesses= new[]
+            {
+                new CropIllness(){ Crop = crops[0], Illness = illnesses[0]},
+                new CropIllness(){ Crop = crops[1], Illness = illnesses[0]},
+                new CropIllness(){ Crop = crops[2], Illness = illnesses[1]},
+                new CropIllness(){ Crop = crops[0], Illness = illnesses[1]},
+            };
+
+            context.CropIllnesses.AddRange(cropIllnesses);
+            context.SaveChanges();
+
+            var productIllnesses = new[]
+            {
+                new ProductIllness(){ Product = products[0], Illness = illnesses[0]},
+                new ProductIllness(){ Product = products[0], Illness = illnesses[1]},
+                new ProductIllness(){ Product = products[0], Illness = illnesses[2]},
+                new ProductIllness(){ Product = products[1], Illness = illnesses[0]},
+                new ProductIllness(){ Product = products[1], Illness = illnesses[1]},
+                new ProductIllness(){ Product = products[1], Illness = illnesses[2]},
+                new ProductIllness(){ Product = products[2], Illness = illnesses[2]},
+                new ProductIllness(){ Product = products[2], Illness = illnesses[1]}
+            };
+
+            context.ProductIllnesses.AddRange(productIllnesses);
+            context.SaveChanges();
         }
     }
 }
