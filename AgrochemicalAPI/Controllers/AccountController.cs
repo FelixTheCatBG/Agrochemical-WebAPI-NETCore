@@ -14,6 +14,7 @@ using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Options;
 using Microsoft.IdentityModel.Tokens;
+using Microsoft.AspNetCore.Identity.UI.Services;
 
 namespace AgrochemicalAPI.Controllers
 {
@@ -27,7 +28,7 @@ namespace AgrochemicalAPI.Controllers
 
         private readonly AppSettings _appSettings;
 
-
+        //private IEmailSender _emailsender;
 
         public AccountController(UserManager<ApplicationUser> userManager,
             SignInManager<ApplicationUser> signInManager,
@@ -54,6 +55,7 @@ namespace AgrochemicalAPI.Controllers
             {
                 Email = formdata.Email,
                 UserName = formdata.UserName,
+                EmailConfirmed = true,
                 SecurityStamp = Guid.NewGuid().ToString()
             };
 

@@ -164,7 +164,6 @@ namespace AgrochemicalAPI
                 option.SwaggerEndpoint(swaggerOptions.UiEndpoint, swaggerOptions.Description);
             });
 
-
             app.UseMvc();
 
             //Seed database with dummy data 
