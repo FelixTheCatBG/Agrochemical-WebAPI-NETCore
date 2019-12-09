@@ -33,6 +33,7 @@ namespace AgrochemicalAPI.Data
             var packages = new[]
             {
                 new Package() {Price=20,Amount = 1, Unit="l", Product=products[0]},
+                new Package() {Price=27,Amount = 30, Unit="l", Product=products[0]},
                 new Package() {Price=20,Amount = 20, Unit="l", Product=products[1]},
                 new Package() {Price=20,Amount = 30, Unit="l", Product=products[2]},
             };

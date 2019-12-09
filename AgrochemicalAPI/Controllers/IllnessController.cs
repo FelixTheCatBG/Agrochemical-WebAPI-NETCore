@@ -25,7 +25,29 @@ namespace AgrochemicalAPI.Controllers
         [HttpGet]
         public async Task<ActionResult<IEnumerable<Illness>>> GetIllnesses()
         {
-            return await _context.Illnesses.ToListAsync();
+            var result = _context.Illnesses                   
+                      .Select(i => new
+                      {
+                          ProductId = i.Id,
+                          ProductName = i.Name,
+                          Description = i.Description,
+                          //Products = i.ProductIllnesses.Select(pi => new
+                          //{
+                          //    ProductId = pi.Product.Id,
+                          //    IllnessName = pi.Product.Name
+                          //}).ToList()
+                          Symptoms = i.IllnessSymptoms.Select(ils => new
+                          {
+                             IllnessSymptoms = ils.Symptom.Name
+                          }).ToList(),
+                      }).ToList();
+
+            if (result == null)
+            {
+                return NotFound();
+            }
+
+            return Ok(result);
         }
 
         // GET: api/Illness/5

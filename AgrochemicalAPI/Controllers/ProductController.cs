@@ -7,6 +7,7 @@ using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using AgrochemicalAPI.Data;
 using AgrochemicalAPI.Models;
+using Newtonsoft.Json.Linq;
 
 namespace AgrochemicalAPI.Controllers
 {
@@ -23,23 +24,62 @@ namespace AgrochemicalAPI.Controllers
 
         // GET: api/Product
         [HttpGet]
-        public async Task<ActionResult<IEnumerable<Product>>> GetProducts()
+        public  IActionResult GetProducts()
         {
-            return await _context.Products.ToListAsync();
+           var productsList =  _context.Products
+                .Select(p => new
+                {
+                    Id = p.Id,
+                    Name = p.Name,
+                    Description = p.Description,
+                    Dose = p.Dose,
+                    Category = p.ProductCategory.Name,
+                    Crops = p.CropProducts.Select(cp => new
+                    {
+                        Id = cp.CropId,
+                        Name = cp.Crop.Name,
+                        Category = cp.Crop.CropCategory.Name
+                    }).ToList(),
+                    Illnesses = p.ProductIllnesses.Select(pi => new
+                    {
+                       IllnessId = pi.Illness.Id,
+                       IllnessName = pi.Illness.Name
+                    }).ToList()
+                }).ToList();
+
+            return Ok(productsList);
         }
 
         // GET: api/Product/5
         [HttpGet("{id}")]
-        public async Task<ActionResult<Product>> GetProduct(int id)
+        public IActionResult GetProduct([FromRoute] int id)
         {
-            var product = await _context.Products.FindAsync(id);
+            var result = _context.Products
+                .Where(p => p.Id == id)
+                 .Select(p => new
+                 {
+                     ProductId = p.Id,
+                     ProductName= p.Name,
+                     Category = p.ProductCategory.Name,
+                     Illnesses = p.ProductIllnesses.Select(pi => new
+                     {
+                         IllnessId = pi.Illness.Id,
+                         IllnessName = pi.Illness.Name
+                     }).ToList(),
+                     Packages = p.Packages.Select(pa => new
+                     {
+                         PackageAmount = pa.Amount,
+                         PackageUnit = pa.Unit,
+                         PackagePrice = pa.Price
+                     }).ToList()
+                 }).SingleOrDefault();
 
-            if (product == null)
+            if (result == null)
             {
                 return NotFound();
             }
-
-            return product;
+              
+            return Ok(result);
         }
 
         // PUT: api/Product/5
@@ -74,8 +114,13 @@ namespace AgrochemicalAPI.Controllers
 
         // POST: api/Product
         [HttpPost]
-        public async Task<ActionResult<Product>> PostProduct(Product product)
+        public async Task<ActionResult> PostProduct([FromBody]Product product)
         {
+            if (!ModelState.IsValid)
+            {
+                return BadRequest(ModelState);
+            }
+
             _context.Products.Add(product);
             await _context.SaveChangesAsync();
 

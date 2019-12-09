@@ -105,12 +105,12 @@ namespace AgrochemicalAPI.Controllers
             {
 
                 // THen Check If Email Is confirmed
-                if (!await _userManager.IsEmailConfirmedAsync(user))
-                {
-                    ModelState.AddModelError(string.Empty, "User Has not Confirmed Email.");
+                //if (!await _userManager.IsEmailConfirmedAsync(user))
+                //{
+                //    ModelState.AddModelError(string.Empty, "User Has not Confirmed Email.");
 
-                    return Unauthorized(new { LoginError = "We sent you an Confirmation Email. Please Confirm Your Registration With Techhowdy.com To Log in." });
-                }
+                //    return Unauthorized(new { LoginError = "We sent you an Confirmation Email. Please Confirm Your Registration With Techhowdy.com To Log in." });
+                //}
 
                 // get user Role
                 var roles = await _userManager.GetRolesAsync(user);
