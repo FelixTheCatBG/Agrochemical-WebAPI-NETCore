@@ -7,6 +7,7 @@ using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using AgrochemicalAPI.Data;
 using AgrochemicalAPI.Models;
+using Newtonsoft.Json.Linq;
 
 namespace AgrochemicalAPI.Controllers
 {
@@ -25,21 +26,55 @@ namespace AgrochemicalAPI.Controllers
         [HttpGet]
         public async Task<ActionResult<IEnumerable<IllnessSymptom>>> GetIllnessSymptoms()
         {
-            return await _context.IllnessSymptoms.ToListAsync();
+            return await _context.IllnessSymptoms.Include(ilnes => ilnes.Symptom).Include(ilnes => ilnes.Illness).ToListAsync();
         }
 
         // GET: api/IllnessSymptom/5
         [HttpGet("{id}")]
-        public async Task<ActionResult<IllnessSymptom>> GetIllnessSymptom(int id)
+        public  IActionResult GetIllnessSymptom()
         {
-            var illnessSymptom = await _context.IllnessSymptoms.FindAsync(id);
+            //var listofSymptoms = new List<int>();
+            //listofSymptoms.AddRange(array);
+            //list1.All(x => list2.Any(y => x.SupplierId == y.SupplierId));
 
-            if (illnessSymptom == null)
+            //var illnesses = _context.Illnesses
+            //    .Include(iln => iln.IllnessSymptoms)
+            //    .Where(ilnes => ilnes.IllnessSymptoms.All(l => searchSymptoms.Contains(l.SymptomId)))
+            //    .Select(e => e.Name)
+            //    .ToList();
+
+            //This works only if all the illness symptoms are containet in the search symptoms
+            //var illnesses = _context.Illnesses
+            //    .Include(iln => iln.IllnessSymptoms)
+            //    //.ThenInclude(ilna => ilna.Symptom)
+            //    .Where(ilnes => ilnes.IllnessSymptoms.All(l => searchSymptoms.Any(y => l.SymptomId == y)))
+            //    .Select(e => e.Name)
+            //    .ToList();
+
+            //This works only if all  search symptoms are containet in the the illness symptoms 
+            //var illnesses = _context.Illnesses
+            //    //.Include(ilnes => ilnes.IllnessSymptoms)
+            //    //.ThenInclude(ilna => ilna.Symptom)
+            //    .Where(ilnes => searchSymptoms.All(l => ilnes.IllnessSymptoms.Any(y => l == y.SymptomId)))
+            //    .Select(e => e.Name)
+            //    .ToList();
+
+            var searchSymptoms = new List<int> { 2 };
+            var searchSymptoms2 = new List<int> { 1, 3, 4, 5, 6, 7, 8, 9 };
+
+            var illnesses = _context.Illnesses
+                .Where(i => searchSymptoms.All(ss => i.IllnessSymptoms.Any(ils => ss == ils.SymptomId)))
+                .Select(i => i.Name)
+                .ToList();
+
+            if (illnesses == null)
             {
                 return NotFound();
             }
+           
+            var boolleana = searchSymptoms.All(x => searchSymptoms2.Any(y => x == y));
 
-            return illnessSymptom;
+            return Ok(illnesses);
         }
 
         // PUT: api/IllnessSymptom/5
