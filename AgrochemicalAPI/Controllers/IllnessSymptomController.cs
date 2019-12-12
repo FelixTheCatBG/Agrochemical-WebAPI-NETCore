@@ -8,6 +8,7 @@ using Microsoft.EntityFrameworkCore;
 using AgrochemicalAPI.Data;
 using AgrochemicalAPI.Models;
 using Newtonsoft.Json.Linq;
+using AgrochemicalAPI.DTOs;
 
 namespace AgrochemicalAPI.Controllers
 {
@@ -31,7 +32,7 @@ namespace AgrochemicalAPI.Controllers
 
         // GET: api/IllnessSymptom/5
         [HttpGet("{id}")]
-        public  IActionResult GetIllnessSymptom()
+        public async Task<IActionResult> GetIllnessSymptom()
         {
             //var listofSymptoms = new List<int>();
             //listofSymptoms.AddRange(array);
@@ -59,20 +60,72 @@ namespace AgrochemicalAPI.Controllers
             //    .Select(e => e.Name)
             //    .ToList();
 
-            var searchSymptoms = new List<int> { 2 };
+            var searchSymptoms = new List<int> { 2,3,4 };
             var searchSymptoms2 = new List<int> { 1, 3, 4, 5, 6, 7, 8, 9 };
 
+            //var illnesses = _context.Illnesses
+            //    .Where(i => searchSymptoms.All(ss => i.IllnessSymptoms.Any(ils => ss == ils.SymptomId)))
+            //    .Select(i => i.Name)
+            //    .ToList();
+
             var illnesses = _context.Illnesses
-                .Where(i => searchSymptoms.All(ss => i.IllnessSymptoms.Any(ils => ss == ils.SymptomId)))
-                .Select(i => i.Name)
-                .ToList();
+           .Where(i => searchSymptoms.All(ss => i.IllnessSymptoms.Any(ils => ss == ils.SymptomId)))
+           .Select(x => new IllnessDto
+           {
+               Name = x.Name,
+               Symptom = x.IllnessSymptoms.Select(ils => new Symptom
+               {
+                   Id = ils.SymptomId,
+                   Name = ils.Symptom.Name
+               }).ToList()
+           }).ToList();
+
+            var iC = new List<IllnessDto>(illnesses);
+
+            foreach (var i in iC)
+            {
+                try
+                {
+                    foreach (var s in i.Symptom.ToList())
+                    {
+                        if (searchSymptoms.Contains(s.Id))
+                        {
+                            try
+                            {
+                                i.Symptom.Remove(s);
+                            }
+                            catch (Exception e)
+                            {
+
+                                throw;
+                            }
+                        }
+                    }
+                }
+                catch (Exception e)
+                {
+
+                    throw;
+                }
+            }
+
+            var fd = illnesses.GroupBy(x => x.Symptom.GroupBy(a => a.Id));
+
+            Console.WriteLine(  "");
+           //.ForEachAsync(x => x.Symptom.ForEach(a =>
+           //{
+           //    if (searchSymptoms.Contains(a.SymptomId))
+                   
+           //}));
+
+
 
             if (illnesses == null)
             {
                 return NotFound();
             }
            
-            var boolleana = searchSymptoms.All(x => searchSymptoms2.Any(y => x == y));
+            //var boolleana = searchSymptoms.All(x => searchSymptoms2.Any(y => x == y));
 
             return Ok(illnesses);
         }

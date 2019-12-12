@@ -11,7 +11,7 @@ namespace AgrochemicalAPI.Data
         public static async Task Initialize(AgrochemicalDbContext context)
         {
             //Ensures the database is deleted and created everytime we run the program
-            context.Database.EnsureDeleted();
+            //context.Database.EnsureDeleted();
             context.Database.EnsureCreated();
 
             var productCategories = new[]
@@ -78,10 +78,15 @@ namespace AgrochemicalAPI.Data
             //Seeding with Crops
             var symptoms = new[]
             {
+                 new Symptom() {Name = "z", Description="Descriptionz" },
                  new Symptom() {Name = "a", Description="Description1" },
                  new Symptom() {Name = "b", Description="Description2" },
                  new Symptom() {Name = "c", Description="Description3" },
                  new Symptom() {Name = "d", Description="Description1" },
+                 new Symptom() {Name = "e", Description="Description1" },
+                 new Symptom() {Name = "f", Description="Description2" },
+                 new Symptom() {Name = "g", Description="Description3" },
+                 new Symptom() {Name = "h", Description="Description1" },
             };
             context.Symptoms.AddRange(symptoms);
             context.SaveChanges();
@@ -92,19 +97,27 @@ namespace AgrochemicalAPI.Data
                 new IllnessSymptom(){ Illness = illnesses[0], Symptom = symptoms[1] },
                 new IllnessSymptom(){ Illness = illnesses[0], Symptom = symptoms[2] },
                 new IllnessSymptom(){ Illness = illnesses[0], Symptom = symptoms[3] },
-                new IllnessSymptom(){ Illness = illnesses[1], Symptom = symptoms[0] },
-                new IllnessSymptom(){ Illness = illnesses[1], Symptom = symptoms[1] },
-                new IllnessSymptom(){ Illness = illnesses[1], Symptom = symptoms[2] },
+
+                //new IllnessSymptom(){ Illness = illnesses[1], Symptom = symptoms[0] },
+                //new IllnessSymptom(){ Illness = illnesses[1], Symptom = symptoms[1] },
+                //new IllnessSymptom(){ Illness = illnesses[1], Symptom = symptoms[2] },
+
                 new IllnessSymptom(){ Illness = illnesses[2], Symptom = symptoms[1] },
                 new IllnessSymptom(){ Illness = illnesses[2], Symptom = symptoms[2] },
                 new IllnessSymptom(){ Illness = illnesses[2], Symptom = symptoms[3] },
-                new IllnessSymptom(){ Illness = illnesses[3], Symptom = symptoms[1] },
-                new IllnessSymptom(){ Illness = illnesses[3], Symptom = symptoms[2] },
+
+                //new IllnessSymptom(){ Illness = illnesses[3], Symptom = symptoms[1] },
+                //new IllnessSymptom(){ Illness = illnesses[3], Symptom = symptoms[2] },
+
                 new IllnessSymptom(){ Illness = illnesses[4], Symptom = symptoms[1] },
-                new IllnessSymptom(){ Illness = illnesses[4], Symptom = symptoms[3] },
                 new IllnessSymptom(){ Illness = illnesses[4], Symptom = symptoms[2] },
+                new IllnessSymptom(){ Illness = illnesses[4], Symptom = symptoms[4] },
+                new IllnessSymptom(){ Illness = illnesses[4], Symptom = symptoms[5] },
+
+                new IllnessSymptom(){ Illness = illnesses[5], Symptom = symptoms[1] },
                 new IllnessSymptom(){ Illness = illnesses[5], Symptom = symptoms[2] },
-                new IllnessSymptom(){ Illness = illnesses[5], Symptom = symptoms[3] }
+                new IllnessSymptom(){ Illness = illnesses[5], Symptom = symptoms[3] },
+                new IllnessSymptom(){ Illness = illnesses[5], Symptom = symptoms[4] },
 
             };
             context.IllnessSymptoms.AddRange(illnessSymptoms);
