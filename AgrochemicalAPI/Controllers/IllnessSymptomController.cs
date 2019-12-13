@@ -9,6 +9,7 @@ using AgrochemicalAPI.Data;
 using AgrochemicalAPI.Models;
 using Newtonsoft.Json.Linq;
 using AgrochemicalAPI.DTOs;
+using AgrochemicalAPI.Services;
 
 namespace AgrochemicalAPI.Controllers
 {
@@ -17,48 +18,29 @@ namespace AgrochemicalAPI.Controllers
     public class IllnessSymptomController : ControllerBase
     {
         private readonly AgrochemicalDbContext _context;
+        private readonly IDecisionBuilder _decisionBuilder;
 
-        public IllnessSymptomController(AgrochemicalDbContext context)
+        public IllnessSymptomController(AgrochemicalDbContext context, IDecisionBuilder decisionBuilder)
         {
             _context = context;
+            _decisionBuilder = decisionBuilder;
         }
 
-        // GET: api/IllnessSymptom
-        [HttpGet]
-        public async Task<ActionResult<IEnumerable<IllnessSymptom>>> GetIllnessSymptoms()
-        {
-            return await _context.IllnessSymptoms.Include(ilnes => ilnes.Symptom).Include(ilnes => ilnes.Illness).ToListAsync();
-        }
+        //// GET: api/IllnessSymptom
+        //[HttpGet]
+        //public async Task<ActionResult<IEnumerable<IllnessSymptom>>> GetIllnessSymptoms()
+        //{
+        //    return await _context.IllnessSymptoms.Include(ilnes => ilnes.Symptom).Include(ilnes => ilnes.Illness).ToListAsync();
+        //}
 
         // GET: api/IllnessSymptom/5
-        [HttpGet("{id}")]
+        [HttpGet]
         public async Task<IActionResult> GetIllnessSymptom()
         {
             //var listofSymptoms = new List<int>();
             //listofSymptoms.AddRange(array);
             //list1.All(x => list2.Any(y => x.SupplierId == y.SupplierId));
 
-            //var illnesses = _context.Illnesses
-            //    .Include(iln => iln.IllnessSymptoms)
-            //    .Where(ilnes => ilnes.IllnessSymptoms.All(l => searchSymptoms.Contains(l.SymptomId)))
-            //    .Select(e => e.Name)
-            //    .ToList();
-
-            //This works only if all the illness symptoms are containet in the search symptoms
-            //var illnesses = _context.Illnesses
-            //    .Include(iln => iln.IllnessSymptoms)
-            //    //.ThenInclude(ilna => ilna.Symptom)
-            //    .Where(ilnes => ilnes.IllnessSymptoms.All(l => searchSymptoms.Any(y => l.SymptomId == y)))
-            //    .Select(e => e.Name)
-            //    .ToList();
-
-            //This works only if all  search symptoms are containet in the the illness symptoms 
-            //var illnesses = _context.Illnesses
-            //    //.Include(ilnes => ilnes.IllnessSymptoms)
-            //    //.ThenInclude(ilna => ilna.Symptom)
-            //    .Where(ilnes => searchSymptoms.All(l => ilnes.IllnessSymptoms.Any(y => l == y.SymptomId)))
-            //    .Select(e => e.Name)
-            //    .ToList();
 
             var searchSymptoms = new List<int> { 2,3,4 };
             var searchSymptoms2 = new List<int> { 1, 3, 4, 5, 6, 7, 8, 9 };
@@ -68,57 +50,14 @@ namespace AgrochemicalAPI.Controllers
             //    .Select(i => i.Name)
             //    .ToList();
 
-            var illnesses = _context.Illnesses
-           .Where(i => searchSymptoms.All(ss => i.IllnessSymptoms.Any(ils => ss == ils.SymptomId)))
-           .Select(x => new IllnessDto
-           {
-               Name = x.Name,
-               Symptom = x.IllnessSymptoms.Select(ils => new Symptom
-               {
-                   Id = ils.SymptomId,
-                   Name = ils.Symptom.Name
-               }).ToList()
-           }).ToList();
+            var illnesses = _decisionBuilder.FindIllnesses(searchSymptoms);
 
-            var iC = new List<IllnessDto>(illnesses);
-
-            foreach (var i in iC)
-            {
-                try
-                {
-                    foreach (var s in i.Symptom.ToList())
-                    {
-                        if (searchSymptoms.Contains(s.Id))
-                        {
-                            try
-                            {
-                                i.Symptom.Remove(s);
-                            }
-                            catch (Exception e)
-                            {
-
-                                throw;
-                            }
-                        }
-                    }
-                }
-                catch (Exception e)
-                {
-
-                    throw;
-                }
-            }
-
-            var fd = illnesses.GroupBy(x => x.Symptom.GroupBy(a => a.Id));
-
-            Console.WriteLine(  "");
+           
            //.ForEachAsync(x => x.Symptom.ForEach(a =>
            //{
            //    if (searchSymptoms.Contains(a.SymptomId))
                    
            //}));
-
-
 
             if (illnesses == null)
             {

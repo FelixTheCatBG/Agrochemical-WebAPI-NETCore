@@ -20,6 +20,7 @@ using Microsoft.IdentityModel.Tokens;
 using System.Text;
 using Swashbuckle.AspNetCore.Swagger;
 using AgrochemicalAPI.Models;
+using AgrochemicalAPI.Services;
 
 namespace AgrochemicalAPI
 {
@@ -47,7 +48,7 @@ namespace AgrochemicalAPI
             services.AddScoped<TokenModel>();
 
             services.AddDbContext<AgrochemicalDbContext>(options => options.UseSqlServer(Configuration.GetConnectionString("AgrochemicalDbContext")));
-
+            services.AddScoped<IDecisionBuilder, DecisionBuilder>();
             //services.AddDbContext<AgrochemicalDbContext>(options => options.UseSqlite("Data Source=agrochemical.db")); 
 
             services.AddMvc().SetCompatibilityVersion(CompatibilityVersion.Version_2_2);
