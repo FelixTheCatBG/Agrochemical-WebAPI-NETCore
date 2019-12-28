@@ -174,8 +174,6 @@ namespace AgrochemicalAPI.Controllers
             };
         }
 
-
-
         // Method to Refresh JWT and Refresh Token
         private async Task<IActionResult> RefreshToken(TokenRequestModel model)
         {

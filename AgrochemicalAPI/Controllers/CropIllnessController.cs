@@ -25,7 +25,15 @@ namespace AgrochemicalAPI.Controllers
         [HttpGet]
         public async Task<ActionResult<IEnumerable<CropIllness>>> GetCropIllnesses()
         {
-            return await _context.CropIllnesses.ToListAsync();
+            var cropIllness = await _context.CropIllnesses
+                .Where(ci => ci.Crop.CropCategory.Name == "Corns")
+                .Select(ci => ci.Illness.IllnessSymptoms.Select(s => new
+                    {
+                        SympomList = s.Symptom.Name
+                    })
+                ).ToListAsync();
+
+            return Ok(cropIllness);
         }
 
         // GET: api/CropIllness/5

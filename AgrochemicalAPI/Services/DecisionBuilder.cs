@@ -6,6 +6,7 @@ using System.Threading.Tasks;
 using AgrochemicalAPI.Data;
 using AgrochemicalAPI.Models;
 using AgrochemicalAPI.DTOs;
+using Microsoft.EntityFrameworkCore;
 
 namespace AgrochemicalAPI.Services
 {
@@ -23,9 +24,11 @@ namespace AgrochemicalAPI.Services
         }
 
         public List<IllnessDto> FindIllnesses(List<int> searchSymptoms)
-        {      
+        {
+            var illnessesByCrop = _context.Illnesses.AsNoTracking();
+
             /* local variable declaration */
-            var illnesses = _context.Illnesses
+            var possibleIllnesses = illnessesByCrop
               .Where(i => searchSymptoms.All(ss => i.IllnessSymptoms.Any(ils => ss == ils.SymptomId)))
               .Select(x => new IllnessDto
               {
@@ -37,9 +40,9 @@ namespace AgrochemicalAPI.Services
                   }).ToList()
               }).ToList();
 
-            var iC = new List<IllnessDto>(illnesses);
+            var symptomsToEvaluate = new List<IllnessDto>(possibleIllnesses);
 
-            foreach (var i in iC)
+            foreach (var i in symptomsToEvaluate)
             {
                 foreach (var s in i.Symptom.ToList())
                 {
@@ -49,9 +52,10 @@ namespace AgrochemicalAPI.Services
                     }
                 }
             }
+
             //var fd = illnesses.GroupBy(x => x.Symptom.GroupBy(a => a.Id));
 
-            return iC;
+            return symptomsToEvaluate;
         }
     }
 }

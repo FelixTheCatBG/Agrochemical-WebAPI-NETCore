@@ -44,7 +44,6 @@ namespace AgrochemicalAPI.Controllers
 
         }
 
-
         [HttpPost("[action]")]
         public async Task<IActionResult> Register([FromBody] RegisterViewModel formdata)
         {
@@ -63,7 +62,7 @@ namespace AgrochemicalAPI.Controllers
 
             if (result.Succeeded)
             {
-                await _userManager.AddToRoleAsync(user, "Customer");
+                await _userManager.AddToRoleAsync(user, "Admin");
 
                 //// Sending Confirmation Email
 

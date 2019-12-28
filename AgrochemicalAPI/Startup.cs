@@ -44,12 +44,15 @@ namespace AgrochemicalAPI
                     builder.AllowAnyOrigin().AllowAnyHeader().AllowAnyMethod().AllowCredentials().Build();
                 });
             });
+
             // Token Model
             services.AddScoped<TokenModel>();
 
             services.AddDbContext<AgrochemicalDbContext>(options => options.UseSqlServer(Configuration.GetConnectionString("AgrochemicalDbContext")));
-            services.AddScoped<IDecisionBuilder, DecisionBuilder>();
             //services.AddDbContext<AgrochemicalDbContext>(options => options.UseSqlite("Data Source=agrochemical.db")); 
+
+            services.AddScoped<IDecisionBuilder, DecisionBuilder>();
+           
 
             services.AddMvc().SetCompatibilityVersion(CompatibilityVersion.Version_2_2);
 
@@ -78,7 +81,6 @@ namespace AgrochemicalAPI
             var appSettings = appSettingsSection.Get<AppSettings>();
             var key = Encoding.ASCII.GetBytes(appSettings.Secret);
 
-
             // Authentication Middleware
             services.AddAuthentication(o =>
             {
@@ -101,14 +103,12 @@ namespace AgrochemicalAPI
                 };
             });
 
-
             services.AddAuthorization(options =>
             {
                 options.AddPolicy("RequireLoggedIn", policy => policy.RequireRole("Admin", "Customer", "Moderator").RequireAuthenticatedUser());
 
                 options.AddPolicy("RequireAdministratorRole", policy => policy.RequireRole("Admin").RequireAuthenticatedUser());
             });
-
 
             services.AddSwaggerGen(x =>
             {
@@ -130,12 +130,10 @@ namespace AgrochemicalAPI
 
             //// configure DI for application services
             //services.AddScoped<IUserService, UserService>();
-
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
-
-        public void Configure(IApplicationBuilder app, IHostingEnvironment env, AgrochemicalDbContext context)
+        public void Configure(IApplicationBuilder app, IHostingEnvironment env, AgrochemicalDbContext context, UserManager<ApplicationUser> _userManager)
         {
             if (env.IsDevelopment())
             {
@@ -150,7 +148,6 @@ namespace AgrochemicalAPI
             app.UseStaticFiles();
             app.UseAuthentication();
             app.UseHttpsRedirection();
-  
 
             //Add authentication to the middleware
             app.UseAuthentication();
@@ -168,7 +165,7 @@ namespace AgrochemicalAPI
             app.UseMvc();
 
             //Seed database with dummy data 
-            Initializer.Initialize(context).Wait();
+            Initializer.Initialize(context, _userManager).Wait();
         }
 
     }

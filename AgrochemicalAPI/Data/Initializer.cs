@@ -1,4 +1,5 @@
 ﻿using AgrochemicalAPI.Models;
+using Microsoft.AspNetCore.Identity;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -8,13 +9,36 @@ namespace AgrochemicalAPI.Data
 {
     public class Initializer
     {
-        public static async Task Initialize(AgrochemicalDbContext context)
+        public static async Task Initialize
+            (
+            AgrochemicalDbContext context,
+            UserManager<ApplicationUser> _userManager
+            )
         {
             //Ensures the database is deleted and created everytime we run the program
-            //context.Database.EnsureDeleted();
+            context.Database.EnsureDeleted();
             context.Database.EnsureCreated();
 
-            var productCategories = new[]
+            //Seed with admin and first user
+            if (await _userManager.FindByNameAsync("admin@gmail.com") == null)
+            {
+                var user = new ApplicationUser
+                {
+                    Email = "admin@gmail.com",
+                    UserName = "admin@gmail.com",
+                    EmailConfirmed = true,
+                    SecurityStamp = Guid.NewGuid().ToString()
+                };
+
+                var result = await _userManager.CreateAsync(user, "333444555");
+
+                if (result.Succeeded)
+                {
+                    await _userManager.AddToRoleAsync(user, "Admin");
+                }
+            }
+
+                var productCategories = new[]
             {
                 new ProductCategory() {Name = "Pesticide"},
                 new ProductCategory() {Name = "Insecticide"}
@@ -25,6 +49,10 @@ namespace AgrochemicalAPI.Data
                 new Product() {Name="Agrochemical100",Description="Description1",Dose = "250ml/100l", ProductCategory=productCategories[0]},
                 new Product() {Name="Agrochemical101",Description="Description2",Dose = "350ml/100l", ProductCategory=productCategories[0]},
                 new Product() {Name="Agrochemical102",Description="Description3",Dose = "450ml/100l", ProductCategory=productCategories[1]},
+                new Product() {Name="Agrochemical103",Description="Description1",Dose = "250ml/100l", ProductCategory=productCategories[0]},
+                new Product() {Name="Agrochemical104",Description="Description1",Dose = "250ml/100l", ProductCategory=productCategories[0]},
+                new Product() {Name="Agrochemical105",Description="Description1",Dose = "250ml/100l", ProductCategory=productCategories[1]},
+                new Product() {Name="Agrochemical106",Description="Description1",Dose = "250ml/100l", ProductCategory=productCategories[1]},
             };
             context.Products.AddRange(products);
             context.SaveChanges();
@@ -79,11 +107,11 @@ namespace AgrochemicalAPI.Data
             var symptoms = new[]
             {
                  new Symptom() {Name = "z", Description="Descriptionz" },
-                 new Symptom() {Name = "a", Description="Description1" },
-                 new Symptom() {Name = "b", Description="Description2" },
-                 new Symptom() {Name = "c", Description="Description3" },
-                 new Symptom() {Name = "d", Description="Description1" },
-                 new Symptom() {Name = "e", Description="Description1" },
+                 new Symptom() {Name = "White leaf", Description="Description1" },
+                 new Symptom() {Name = "Yellow leaf", Description="Description2" },
+                 new Symptom() {Name = "Dots", Description="Description3" },
+                 new Symptom() {Name = "Small leaf", Description="Description1" },
+                 new Symptom() {Name = "SmthElse", Description="Description1" },
                  new Symptom() {Name = "f", Description="Description2" },
                  new Symptom() {Name = "g", Description="Description3" },
                  new Symptom() {Name = "h", Description="Description1" },

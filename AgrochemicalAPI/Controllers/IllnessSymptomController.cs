@@ -42,7 +42,7 @@ namespace AgrochemicalAPI.Controllers
             //list1.All(x => list2.Any(y => x.SupplierId == y.SupplierId));
 
 
-            var searchSymptoms = new List<int> { 2,3,4 };
+            var searchSymptoms = new List<int> { 2,3 };
             var searchSymptoms2 = new List<int> { 1, 3, 4, 5, 6, 7, 8, 9 };
 
             //var illnesses = _context.Illnesses
@@ -52,18 +52,12 @@ namespace AgrochemicalAPI.Controllers
 
             var illnesses = _decisionBuilder.FindIllnesses(searchSymptoms);
 
-           
-           //.ForEachAsync(x => x.Symptom.ForEach(a =>
-           //{
-           //    if (searchSymptoms.Contains(a.SymptomId))
-                   
-           //}));
-
             if (illnesses == null)
             {
                 return NotFound();
             }
-           
+
+            //var result = illnesses.GroupBy(x => x.Symptom.GroupBy(a => a.Id));
             //var boolleana = searchSymptoms.All(x => searchSymptoms2.Any(y => x == y));
 
             return Ok(illnesses);

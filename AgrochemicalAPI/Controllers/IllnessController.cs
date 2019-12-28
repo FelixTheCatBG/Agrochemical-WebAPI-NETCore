@@ -54,14 +54,36 @@ namespace AgrochemicalAPI.Controllers
         [HttpGet("{id}")]
         public async Task<ActionResult<Illness>> GetIllness(int id)
         {
-            var illness = await _context.Illnesses.FindAsync(id);
+            var illness = _context.Illnesses
+                .Where(i => i.Id == id)
+                .Select(i => new
+                {
+                    ProductId = i.Id,
+                    ProductName = i.Name,
+                    Description = i.Description,
+                    //Products = i.ProductIllnesses.Select(pi => new
+                    //{
+                    //    ProductId = pi.Product.Id,
+                    //    IllnessName = pi.Product.Name
+                    //}).ToList()
+                    Symptoms = i.IllnessSymptoms.Select(ils => new
+                    {
+                        IllnessSymptoms = ils.Symptom.Name
+                    }).ToList(),
+                    Products = i.ProductIllnesses.Select(pr => new
+                    {
+                        ProductId = pr.Product.Id,
+                        ProductName = pr.Product.Name
+                    }).ToList()
+                }).ToList();
+            
 
             if (illness == null)
             {
                 return NotFound();
             }
 
-            return illness;
+            return Ok(illness);
         }
 
         // PUT: api/Illness/5

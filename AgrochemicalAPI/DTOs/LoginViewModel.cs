@@ -8,12 +8,13 @@ namespace AgrochemicalAPI.DTOs
 {
     public class LoginViewModel
     {
-        [Required]
+        [Required(ErrorMessage = "Username is required")]
         [Display(Name = "User Name")]
         public string Username { get; set; }
 
-        [Required]
+        [Required(ErrorMessage = "Password is required")]
         [DataType(DataType.Password)]
+        //[StringLength(100, ErrorMessage = "The {0} must be at least {2} characters long.", MinimumLength = 6)]
         public string Password { get; set; }
     }
 }
