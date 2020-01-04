@@ -34,15 +34,18 @@ namespace AgrochemicalAPI.Controllers
         //}
 
         // GET: api/IllnessSymptom/5
-        [HttpGet]
-        public async Task<IActionResult> GetIllnessSymptom()
+        [HttpPost]
+        public async Task<IActionResult> PostIllnessSymptom([FromBody]int[] symptomsArray)
         {
             //var listofSymptoms = new List<int>();
             //listofSymptoms.AddRange(array);
             //list1.All(x => list2.Any(y => x.SupplierId == y.SupplierId));
 
 
-            var searchSymptoms = new List<int> { 2,3 };
+            //var searchSymptoms = new List<int> { 2,3 };
+
+            var searchSymptoms = new List<int>(symptomsArray);
+
             var searchSymptoms2 = new List<int> { 1, 3, 4, 5, 6, 7, 8, 9 };
 
             //var illnesses = _context.Illnesses
@@ -93,29 +96,29 @@ namespace AgrochemicalAPI.Controllers
             return NoContent();
         }
 
-        // POST: api/IllnessSymptom
-        [HttpPost]
-        public async Task<ActionResult<IllnessSymptom>> PostIllnessSymptom(IllnessSymptom illnessSymptom)
-        {
-            _context.IllnessSymptoms.Add(illnessSymptom);
-            try
-            {
-                await _context.SaveChangesAsync();
-            }
-            catch (DbUpdateException)
-            {
-                if (IllnessSymptomExists(illnessSymptom.IllnessId))
-                {
-                    return Conflict();
-                }
-                else
-                {
-                    throw;
-                }
-            }
+        //// POST: api/IllnessSymptom
+        //[HttpPost]
+        //public async Task<ActionResult<IllnessSymptom>> PostIllnessSymptom(IllnessSymptom illnessSymptom)
+        //{
+        //    _context.IllnessSymptoms.Add(illnessSymptom);
+        //    try
+        //    {
+        //        await _context.SaveChangesAsync();
+        //    }
+        //    catch (DbUpdateException)
+        //    {
+        //        if (IllnessSymptomExists(illnessSymptom.IllnessId))
+        //        {
+        //            return Conflict();
+        //        }
+        //        else
+        //        {
+        //            throw;
+        //        }
+        //    }
 
-            return CreatedAtAction("GetIllnessSymptom", new { id = illnessSymptom.IllnessId }, illnessSymptom);
-        }
+        //    return CreatedAtAction("GetIllnessSymptom", new { id = illnessSymptom.IllnessId }, illnessSymptom);
+        //}
 
         // DELETE: api/IllnessSymptom/5
         [HttpDelete("{id}")]

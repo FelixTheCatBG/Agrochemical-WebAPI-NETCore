@@ -71,6 +71,10 @@ namespace AgrochemicalAPI.Controllers
                          PackageAmount = pa.Amount,
                          PackageUnit = pa.Unit,
                          PackagePrice = pa.Price
+                     }).ToList(),
+                     ProductCrops = p.CropProducts.Select(cpp => new {
+                        CropName = cpp.Crop.Name,
+                        Dose = cpp.Dose
                      }).ToList()
                  }).SingleOrDefault();
 

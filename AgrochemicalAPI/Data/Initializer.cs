@@ -153,12 +153,12 @@ namespace AgrochemicalAPI.Data
 
             var cropProducts = new[]
             {
-                new CropProduct(){ Product = products[0], Crop = crops[0]},
-                new CropProduct(){ Product = products[0], Crop = crops[1]},
-                new CropProduct(){ Product = products[0], Crop = crops[2]},
-                new CropProduct(){ Product = products[1], Crop = crops[0]},
-                new CropProduct(){ Product = products[2], Crop = crops[0]},
-                new CropProduct(){ Product = products[2], Crop = crops[1]},
+                new CropProduct(){ Product = products[0], Crop = crops[0], Dose = "SOME DOSE 1"},
+                new CropProduct(){ Product = products[0], Crop = crops[1], Dose = "SOME DOSE 2"},
+                new CropProduct(){ Product = products[0], Crop = crops[2], Dose = "SOME DOSE 3"},
+                new CropProduct(){ Product = products[1], Crop = crops[0], Dose = "SOME DOSE 4"},
+                new CropProduct(){ Product = products[2], Crop = crops[0], Dose = "SOME DOSE 5"},
+                new CropProduct(){ Product = products[2], Crop = crops[1], Dose = "SOME DOSE 7"},
 
             };
             context.CropProducts.AddRange(cropProducts);
