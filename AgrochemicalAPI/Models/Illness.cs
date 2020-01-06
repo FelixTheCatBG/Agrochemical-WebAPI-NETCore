@@ -18,5 +18,8 @@ namespace AgrochemicalAPI.Models
         public ICollection<ProductIllness> ProductIllnesses { get; set; } = new HashSet<ProductIllness>();
 
         public ICollection<IllnessSymptom> IllnessSymptoms { get; set; } = new HashSet<IllnessSymptom>();
+
+        public ICollection<ProductCropIllness> ProductCropIllnesses { get; set; } = new HashSet<ProductCropIllness>();
+
     }
 }

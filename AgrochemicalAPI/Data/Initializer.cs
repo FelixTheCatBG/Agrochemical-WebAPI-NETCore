@@ -174,6 +174,16 @@ namespace AgrochemicalAPI.Data
             context.CropIllnesses.AddRange(cropIllnesses);
             context.SaveChanges();
 
+            var productcropillness = new[]
+{
+                new ProductCropIllness(){Product = products[0], Crop = crops[0], Illness = illnesses[0],Dosage="2323aaa"},
+                new ProductCropIllness(){Product = products[0], Crop = crops[1], Illness = illnesses[0],Dosage="2323aaa"},
+                new ProductCropIllness(){ Product = products[1],Crop = crops[2], Illness = illnesses[1],Dosage="2323aaa"},
+                new ProductCropIllness(){ Product = products[1],Crop = crops[0], Illness = illnesses[1],Dosage="2323aaa"},
+            };
+            context.ProductCropIllnesses.AddRange(productcropillness);
+            context.SaveChanges();
+
             var productIllnesses = new[]
             {
                 new ProductIllness(){ Product = products[0], Illness = illnesses[0]},

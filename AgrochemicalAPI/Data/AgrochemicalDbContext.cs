@@ -23,6 +23,7 @@ namespace AgrochemicalAPI.Data
         public DbSet<CropIllness> CropIllnesses { get; set; }
         public DbSet<ProductIllness> ProductIllnesses { get; set; }
         public DbSet<TokenModel> Tokens { get; set; }
+        public DbSet<ProductCropIllness> ProductCropIllnesses { get; set; }
 
         public AgrochemicalDbContext(DbContextOptions<AgrochemicalDbContext> options)
             : base(options)
@@ -111,6 +112,24 @@ namespace AgrochemicalAPI.Data
                 .HasMany(s => s.IllnessSymptoms)
                 .WithOne(ils => ils.Symptom)
                 .HasForeignKey(ils => ils.SymptomId);
+
+            builder.Entity<ProductCropIllness>()
+            .HasKey(e => new { e.ProductCropIllnessId });
+
+            builder.Entity<Product>()
+                .HasMany(p => p.ProductCropIllnesses)
+                .WithOne(ils => ils.Product)
+                .HasForeignKey(ils => ils.ProductId);
+
+            builder.Entity<Crop>()
+                .HasMany(s => s.ProductCropIllnesses)
+                .WithOne(ils => ils.Crop)
+                .HasForeignKey(ils => ils.CropId);
+
+            builder.Entity<Illness>()
+                .HasMany(s => s.ProductCropIllnesses)
+                .WithOne(ils => ils.Illness)
+                .HasForeignKey(ils => ils.IllnessId);
 
         }
     }
