@@ -12,22 +12,22 @@ namespace AgrochemicalAPI.Controllers
 {
     [Route("api/[controller]")]
     [ApiController]
-    public class CropIllnessController : ControllerBase
+    public class CropDiseaseController : ControllerBase
     {
         private readonly AgrochemicalDbContext _context;
 
-        public CropIllnessController(AgrochemicalDbContext context)
+        public CropDiseaseController(AgrochemicalDbContext context)
         {
             _context = context;
         }
 
         // GET: api/CropIllness
         [HttpGet]
-        public async Task<ActionResult<IEnumerable<CropIllness>>> GetCropIllnesses()
+        public async Task<ActionResult<IEnumerable<CropDisease>>> GetCropIllnesses()
         {
-            var cropIllness = await _context.CropIllnesses
+            var cropIllness = await _context.CropDiseases
                 .Where(ci => ci.Crop.CropCategory.Name == "Corns")
-                .Select(ci => ci.Illness.IllnessSymptoms.Select(s => new
+                .Select(ci => ci.Disease.DiseaseSymtpoms.Select(s => new
                     {
                         SympomList = s.Symptom.Name
                     })
@@ -38,9 +38,9 @@ namespace AgrochemicalAPI.Controllers
 
         // GET: api/CropIllness/5
         [HttpGet("{id}")]
-        public async Task<ActionResult<CropIllness>> GetCropIllness(int id)
+        public async Task<ActionResult<CropDisease>> GetCropIllness(int id)
         {
-            var cropIllness = await _context.CropIllnesses.FindAsync(id);
+            var cropIllness = await _context.CropDiseases.FindAsync(id);
 
             if (cropIllness == null)
             {
@@ -52,7 +52,7 @@ namespace AgrochemicalAPI.Controllers
 
         // PUT: api/CropIllness/5
         [HttpPut("{id}")]
-        public async Task<IActionResult> PutCropIllness(int id, CropIllness cropIllness)
+        public async Task<IActionResult> PutCropIllness(int id, CropDisease cropIllness)
         {
             if (id != cropIllness.CropId)
             {
@@ -82,9 +82,9 @@ namespace AgrochemicalAPI.Controllers
 
         // POST: api/CropIllness
         [HttpPost]
-        public async Task<ActionResult<CropIllness>> PostCropIllness(CropIllness cropIllness)
+        public async Task<ActionResult<CropDisease>> PostCropIllness(CropDisease cropIllness)
         {
-            _context.CropIllnesses.Add(cropIllness);
+            _context.CropDiseases.Add(cropIllness);
             try
             {
                 await _context.SaveChangesAsync();
@@ -106,15 +106,15 @@ namespace AgrochemicalAPI.Controllers
 
         // DELETE: api/CropIllness/5
         [HttpDelete("{id}")]
-        public async Task<ActionResult<CropIllness>> DeleteCropIllness(int id)
+        public async Task<ActionResult<CropDisease>> DeleteCropIllness(int id)
         {
-            var cropIllness = await _context.CropIllnesses.FindAsync(id);
+            var cropIllness = await _context.CropDiseases.FindAsync(id);
             if (cropIllness == null)
             {
                 return NotFound();
             }
 
-            _context.CropIllnesses.Remove(cropIllness);
+            _context.CropDiseases.Remove(cropIllness);
             await _context.SaveChangesAsync();
 
             return cropIllness;
@@ -122,7 +122,7 @@ namespace AgrochemicalAPI.Controllers
 
         private bool CropIllnessExists(int id)
         {
-            return _context.CropIllnesses.Any(e => e.CropId == id);
+            return _context.CropDiseases.Any(e => e.CropId == id);
         }
     }
 }

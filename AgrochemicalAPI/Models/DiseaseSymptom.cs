@@ -5,10 +5,10 @@ using System.Threading.Tasks;
 
 namespace AgrochemicalAPI.Models
 {
-    public class IllnessSymptom
+    public class DiseaseSymptom
     {
-        public int IllnessId { get; set; }
-        public Illness Illness { get; set; }
+        public int DiseaseId { get; set; }
+        public Disease Disease { get; set; }
 
         public int SymptomId { get; set; }
         public Symptom Symptom { get; set; }

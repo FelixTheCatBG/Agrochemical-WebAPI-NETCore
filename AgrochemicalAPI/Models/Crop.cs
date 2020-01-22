@@ -12,8 +12,8 @@ namespace AgrochemicalAPI.Models
         public int CropCategoryId { get; set; }
         public CropCategory CropCategory { get; set; }
         public ICollection<CropProduct> CropProducts { get; set; } = new HashSet<CropProduct>();
-        public ICollection<CropIllness> CropIllnesses { get; set; } = new HashSet<CropIllness>();
+        public ICollection<CropDisease> CropDiseases { get; set; } = new HashSet<CropDisease>();
 
-        public ICollection<ProductCropIllness> ProductCropIllnesses { get; set; } = new HashSet<ProductCropIllness>();
+        public ICollection<ProductCropDisease> ProductCropDiseases { get; set; } = new HashSet<ProductCropDisease>();
     }
 }

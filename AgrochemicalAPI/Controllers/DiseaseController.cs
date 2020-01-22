@@ -12,31 +12,31 @@ namespace AgrochemicalAPI.Controllers
 {
     [Route("api/[controller]")]
     [ApiController]
-    public class IllnessController : ControllerBase
+    public class DiseaseController : ControllerBase
     {
         private readonly AgrochemicalDbContext _context;
 
-        public IllnessController(AgrochemicalDbContext context)
+        public DiseaseController(AgrochemicalDbContext context)
         {
             _context = context;
         }
 
-        // GET: api/Illness
+        // GET: api/Disease
         [HttpGet]
-        public async Task<ActionResult<IEnumerable<Illness>>> GetIllnesses()
+        public async Task<ActionResult<IEnumerable<Disease>>> GetIllnesses()
         {
-            var result = _context.Illnesses                   
+            var result = _context.Diseases                   
                       .Select(i => new
                       {
                           ProductId = i.Id,
                           ProductName = i.Name,
                           Description = i.Description,
-                          //Products = i.ProductIllnesses.Select(pi => new
+                          //Products = i.ProductDiseases.Select(pi => new
                           //{
                           //    ProductId = pi.Product.Id,
                           //    IllnessName = pi.Product.Name
                           //}).ToList()
-                          Symptoms = i.IllnessSymptoms.Select(ils => new
+                          Symptoms = i.DiseaseSymtpoms.Select(ils => new
                           {
                              IllnessSymptoms = ils.Symptom.Name
                           }).ToList(),
@@ -50,27 +50,27 @@ namespace AgrochemicalAPI.Controllers
             return Ok(result);
         }
 
-        // GET: api/Illness/5
+        // GET: api/Disease/5
         [HttpGet("{id}")]
-        public async Task<ActionResult<Illness>> GetIllness(int id)
+        public async Task<ActionResult<Disease>> GetIllness(int id)
         {
-            var illness = _context.Illnesses
+            var illness = _context.Diseases
                 .Where(i => i.Id == id)
                 .Select(i => new
                 {
                     ProductId = i.Id,
                     ProductName = i.Name,
                     Description = i.Description,
-                    //Products = i.ProductIllnesses.Select(pi => new
+                    //Products = i.ProductDiseases.Select(pi => new
                     //{
                     //    ProductId = pi.Product.Id,
                     //    IllnessName = pi.Product.Name
                     //}).ToList()
-                    Symptoms = i.IllnessSymptoms.Select(ils => new
+                    Symptoms = i.DiseaseSymtpoms.Select(ils => new
                     {
                         IllnessSymptoms = ils.Symptom.Name
                     }).ToList(),
-                    Products = i.ProductIllnesses.Select(pr => new
+                    Products = i.ProductDiseases.Select(pr => new
                     {
                         ProductId = pr.Product.Id,
                         ProductName = pr.Product.Name
@@ -86,9 +86,9 @@ namespace AgrochemicalAPI.Controllers
             return Ok(illness);
         }
 
-        // PUT: api/Illness/5
+        // PUT: api/Disease/5
         [HttpPut("{id}")]
-        public async Task<IActionResult> PutIllness(int id, Illness illness)
+        public async Task<IActionResult> PutIllness(int id, Disease illness)
         {
             if (id != illness.Id)
             {
@@ -116,27 +116,27 @@ namespace AgrochemicalAPI.Controllers
             return NoContent();
         }
 
-        // POST: api/Illness
+        // POST: api/Disease
         [HttpPost]
-        public async Task<ActionResult<Illness>> PostIllness(Illness illness)
+        public async Task<ActionResult<Disease>> PostIllness(Disease illness)
         {
-            _context.Illnesses.Add(illness);
+            _context.Diseases.Add(illness);
             await _context.SaveChangesAsync();
 
             return CreatedAtAction("GetIllness", new { id = illness.Id }, illness);
         }
 
-        // DELETE: api/Illness/5
+        // DELETE: api/Disease/5
         [HttpDelete("{id}")]
-        public async Task<ActionResult<Illness>> DeleteIllness(int id)
+        public async Task<ActionResult<Disease>> DeleteIllness(int id)
         {
-            var illness = await _context.Illnesses.FindAsync(id);
+            var illness = await _context.Diseases.FindAsync(id);
             if (illness == null)
             {
                 return NotFound();
             }
 
-            _context.Illnesses.Remove(illness);
+            _context.Diseases.Remove(illness);
             await _context.SaveChangesAsync();
 
             return illness;
@@ -144,7 +144,7 @@ namespace AgrochemicalAPI.Controllers
 
         private bool IllnessExists(int id)
         {
-            return _context.Illnesses.Any(e => e.Id == id);
+            return _context.Diseases.Any(e => e.Id == id);
         }
     }
 }

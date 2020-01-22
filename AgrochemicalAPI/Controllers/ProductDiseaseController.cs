@@ -12,11 +12,11 @@ namespace AgrochemicalAPI.Controllers
 {
     [Route("api/[controller]")]
     [ApiController]
-    public class ProductIllnessController : ControllerBase
+    public class ProductDiseaseController : ControllerBase
     {
         private readonly AgrochemicalDbContext _context;
 
-        public ProductIllnessController(AgrochemicalDbContext context)
+        public ProductDiseaseController(AgrochemicalDbContext context)
         {
             _context = context;
         }
@@ -26,17 +26,17 @@ namespace AgrochemicalAPI.Controllers
         public IActionResult GetProductIllnesses([FromQuery] string illness)
         {
           
-                var result = _context.ProductIllnesses
-                    .Where(p => p.Illness.Name == illness)
+                var result = _context.ProductDiseases
+                    .Where(p => p.Disease.Name == illness)
                      .Select(p => new
                      {
                          ProductId = p.Product.Id,
                          ProductName = p.Product.Name,
                          Category = p.Product.ProductCategory.Name,
-                         Illnesses = p.Product.ProductIllnesses.Select(pi => new
+                         Illnesses = p.Product.ProductDiseases.Select(pi => new
                          {
-                             IllnessId = pi.Illness.Id,
-                             IllnessName = pi.Illness.Name
+                             IllnessId = pi.Disease.Id,
+                             IllnessName = pi.Disease.Name
                          }).ToList(),
                          Packages = p.Product.Packages.Select(pa => new
                          {
@@ -45,7 +45,7 @@ namespace AgrochemicalAPI.Controllers
                              PackagePrice = pa.Price
                          }).ToList()
                      }).ToList();
-
+                
                 if (result == null)
                 {
                     return NotFound();
@@ -56,9 +56,9 @@ namespace AgrochemicalAPI.Controllers
 
         // GET: api/ProductIllness/5
         [HttpGet("{id}")]
-        public async Task<ActionResult<ProductIllness>> GetProductIllness(int id)
+        public async Task<ActionResult<ProductDisease>> GetProductIllness(int id)
         {
-            var productIllness = await _context.ProductIllnesses.FindAsync(id);
+            var productIllness = await _context.ProductDiseases.FindAsync(id);
 
             if (productIllness == null)
             {
@@ -70,7 +70,7 @@ namespace AgrochemicalAPI.Controllers
 
         // PUT: api/ProductIllness/5
         [HttpPut("{id}")]
-        public async Task<IActionResult> PutProductIllness(int id, ProductIllness productIllness)
+        public async Task<IActionResult> PutProductIllness(int id, ProductDisease productIllness)
         {
             if (id != productIllness.ProductId)
             {
@@ -100,9 +100,9 @@ namespace AgrochemicalAPI.Controllers
 
         // POST: api/ProductIllness
         [HttpPost]
-        public async Task<ActionResult<ProductIllness>> PostProductIllness(ProductIllness productIllness)
+        public async Task<ActionResult<ProductDisease>> PostProductIllness(ProductDisease productIllness)
         {
-            _context.ProductIllnesses.Add(productIllness);
+            _context.ProductDiseases.Add(productIllness);
             try
             {
                 await _context.SaveChangesAsync();
@@ -124,15 +124,15 @@ namespace AgrochemicalAPI.Controllers
 
         // DELETE: api/ProductIllness/5
         [HttpDelete("{id}")]
-        public async Task<ActionResult<ProductIllness>> DeleteProductIllness(int id)
+        public async Task<ActionResult<ProductDisease>> DeleteProductIllness(int id)
         {
-            var productIllness = await _context.ProductIllnesses.FindAsync(id);
+            var productIllness = await _context.ProductDiseases.FindAsync(id);
             if (productIllness == null)
             {
                 return NotFound();
             }
 
-            _context.ProductIllnesses.Remove(productIllness);
+            _context.ProductDiseases.Remove(productIllness);
             await _context.SaveChangesAsync();
 
             return productIllness;
@@ -140,7 +140,7 @@ namespace AgrochemicalAPI.Controllers
 
         private bool ProductIllnessExists(int id)
         {
-            return _context.ProductIllnesses.Any(e => e.ProductId == id);
+            return _context.ProductDiseases.Any(e => e.ProductId == id);
         }
     }
 }

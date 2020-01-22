@@ -90,17 +90,17 @@ namespace AgrochemicalAPI.Data
             context.SaveChanges();
 
             //Seeding with Illnesses
-            var illnesses = new[]
+            var diseases = new[]
             {
-                 new Illness() {Name = "WhiteIllness", Description="Description1" },
-                 new Illness() {Name = "YellowIllness", Description="Description2" },
-                 new Illness() {Name = "RedIllness", Description="Description3" },
-                 new Illness() {Name = "BlackIllness", Description="Description4" },
-                 new Illness() {Name = "Illness1Symptoms", Description="Description5" },
-                 new Illness() {Name = "Illness2Symptoms", Description="Description6" },
+                 new Disease() {Name = "WhiteIllness", Description="Description1" },
+                 new Disease() {Name = "YellowIllness", Description="Description2" },
+                 new Disease() {Name = "RedIllness", Description="Description3" },
+                 new Disease() {Name = "BlackIllness", Description="Description4" },
+                 new Disease() {Name = "Illness1Symptoms", Description="Description5" },
+                 new Disease() {Name = "Illness2Symptoms", Description="Description6" },
             };
 
-            context.Illnesses.AddRange(illnesses);
+            context.Diseases.AddRange(diseases);
             context.SaveChanges();
 
             //Seeding with Crops
@@ -119,36 +119,36 @@ namespace AgrochemicalAPI.Data
             context.Symptoms.AddRange(symptoms);
             context.SaveChanges();
 
-            var illnessSymptoms = new[]
+            var diseaseSymptoms = new[]
 {
-                new IllnessSymptom(){ Illness = illnesses[0], Symptom = symptoms[0] },
-                new IllnessSymptom(){ Illness = illnesses[0], Symptom = symptoms[1] },
-                new IllnessSymptom(){ Illness = illnesses[0], Symptom = symptoms[2] },
-                new IllnessSymptom(){ Illness = illnesses[0], Symptom = symptoms[3] },
+                new DiseaseSymptom(){ Disease = diseases[0], Symptom = symptoms[0] },
+                new DiseaseSymptom(){ Disease = diseases[0], Symptom = symptoms[1] },
+                new DiseaseSymptom(){ Disease = diseases[0], Symptom = symptoms[2] },
+                new DiseaseSymptom(){ Disease = diseases[0], Symptom = symptoms[3] },
 
-                //new IllnessSymptom(){ Illness = illnesses[1], Symptom = symptoms[0] },
-                //new IllnessSymptom(){ Illness = illnesses[1], Symptom = symptoms[1] },
-                //new IllnessSymptom(){ Illness = illnesses[1], Symptom = symptoms[2] },
+                //new IllnessSymptom(){ Disease = illnesses[1], Symptom = symptoms[0] },
+                //new IllnessSymptom(){ Disease = illnesses[1], Symptom = symptoms[1] },
+                //new IllnessSymptom(){ Disease = illnesses[1], Symptom = symptoms[2] },
 
-                new IllnessSymptom(){ Illness = illnesses[2], Symptom = symptoms[1] },
-                new IllnessSymptom(){ Illness = illnesses[2], Symptom = symptoms[2] },
-                new IllnessSymptom(){ Illness = illnesses[2], Symptom = symptoms[3] },
+                new DiseaseSymptom(){ Disease = diseases[2], Symptom = symptoms[1] },
+                new DiseaseSymptom(){ Disease = diseases[2], Symptom = symptoms[2] },
+                new DiseaseSymptom(){ Disease = diseases[2], Symptom = symptoms[3] },
 
-                //new IllnessSymptom(){ Illness = illnesses[3], Symptom = symptoms[1] },
-                //new IllnessSymptom(){ Illness = illnesses[3], Symptom = symptoms[2] },
+                //new IllnessSymptom(){ Disease = illnesses[3], Symptom = symptoms[1] },
+                //new IllnessSymptom(){ Disease = illnesses[3], Symptom = symptoms[2] },
 
-                new IllnessSymptom(){ Illness = illnesses[4], Symptom = symptoms[1] },
-                new IllnessSymptom(){ Illness = illnesses[4], Symptom = symptoms[2] },
-                new IllnessSymptom(){ Illness = illnesses[4], Symptom = symptoms[4] },
-                new IllnessSymptom(){ Illness = illnesses[4], Symptom = symptoms[5] },
+                new DiseaseSymptom(){ Disease = diseases[4], Symptom = symptoms[1] },
+                new DiseaseSymptom(){ Disease = diseases[4], Symptom = symptoms[2] },
+                new DiseaseSymptom(){ Disease = diseases[4], Symptom = symptoms[4] },
+                new DiseaseSymptom(){ Disease = diseases[4], Symptom = symptoms[5] },
 
-                new IllnessSymptom(){ Illness = illnesses[5], Symptom = symptoms[1] },
-                new IllnessSymptom(){ Illness = illnesses[5], Symptom = symptoms[2] },
-                new IllnessSymptom(){ Illness = illnesses[5], Symptom = symptoms[3] },
-                new IllnessSymptom(){ Illness = illnesses[5], Symptom = symptoms[4] },
+                new DiseaseSymptom(){ Disease = diseases[5], Symptom = symptoms[1] },
+                new DiseaseSymptom(){ Disease = diseases[5], Symptom = symptoms[2] },
+                new DiseaseSymptom(){ Disease = diseases[5], Symptom = symptoms[3] },
+                new DiseaseSymptom(){ Disease = diseases[5], Symptom = symptoms[4] },
 
             };
-            context.IllnessSymptoms.AddRange(illnessSymptoms);
+            context.DiseaseSymptoms.AddRange(diseaseSymptoms);
             context.SaveChanges();
 
             var cropProducts = new[]
@@ -164,38 +164,38 @@ namespace AgrochemicalAPI.Data
             context.CropProducts.AddRange(cropProducts);
             context.SaveChanges();
 
-            var cropIllnesses= new[]
+            var cropDiseases= new[]
             {
-                new CropIllness(){ Crop = crops[0], Illness = illnesses[0]},
-                new CropIllness(){ Crop = crops[1], Illness = illnesses[0]},
-                new CropIllness(){ Crop = crops[2], Illness = illnesses[1]},
-                new CropIllness(){ Crop = crops[0], Illness = illnesses[1]},
+                new CropDisease(){ Crop = crops[0], Disease = diseases[0]},
+                new CropDisease(){ Crop = crops[1], Disease = diseases[0]},
+                new CropDisease(){ Crop = crops[2], Disease = diseases[1]},
+                new CropDisease(){ Crop = crops[0], Disease = diseases[1]},
             };
-            context.CropIllnesses.AddRange(cropIllnesses);
+            context.CropDiseases.AddRange(cropDiseases);
             context.SaveChanges();
 
-            var productcropillness = new[]
+            var productCropDiseases = new[]
 {
-                new ProductCropIllness(){Product = products[0], Crop = crops[0], Illness = illnesses[0],Dosage="2323aaa"},
-                new ProductCropIllness(){Product = products[0], Crop = crops[1], Illness = illnesses[0],Dosage="2323aaa"},
-                new ProductCropIllness(){ Product = products[1],Crop = crops[2], Illness = illnesses[1],Dosage="2323aaa"},
-                new ProductCropIllness(){ Product = products[1],Crop = crops[0], Illness = illnesses[1],Dosage="2323aaa"},
+                new ProductCropDisease(){Product = products[0], Crop = crops[0], Disease = diseases[0],Dosage="2323aaa"},
+                new ProductCropDisease(){Product = products[0], Crop = crops[1], Disease = diseases[0],Dosage="2323aaa"},
+                new ProductCropDisease(){ Product = products[1],Crop = crops[2], Disease = diseases[1],Dosage="2323aaa"},
+                new ProductCropDisease(){ Product = products[1],Crop = crops[0], Disease = diseases[1],Dosage="2323aaa"},
             };
-            context.ProductCropIllnesses.AddRange(productcropillness);
+            context.ProductCropDiseases.AddRange(productCropDiseases);
             context.SaveChanges();
 
-            var productIllnesses = new[]
+            var productDiseases = new[]
             {
-                new ProductIllness(){ Product = products[0], Illness = illnesses[0]},
-                new ProductIllness(){ Product = products[0], Illness = illnesses[1]},
-                new ProductIllness(){ Product = products[0], Illness = illnesses[2]},
-                new ProductIllness(){ Product = products[1], Illness = illnesses[0]},
-                new ProductIllness(){ Product = products[1], Illness = illnesses[1]},
-                new ProductIllness(){ Product = products[1], Illness = illnesses[2]},
-                new ProductIllness(){ Product = products[2], Illness = illnesses[2]},
-                new ProductIllness(){ Product = products[2], Illness = illnesses[1]}
+                new ProductDisease(){ Product = products[0], Disease = diseases[0]},
+                new ProductDisease(){ Product = products[0], Disease = diseases[1]},
+                new ProductDisease(){ Product = products[0], Disease = diseases[2]},
+                new ProductDisease(){ Product = products[1], Disease = diseases[0]},
+                new ProductDisease(){ Product = products[1], Disease = diseases[1]},
+                new ProductDisease(){ Product = products[1], Disease = diseases[2]},
+                new ProductDisease(){ Product = products[2], Disease = diseases[2]},
+                new ProductDisease(){ Product = products[2], Disease = diseases[1]}
             };
-            context.ProductIllnesses.AddRange(productIllnesses);
+            context.ProductDiseases.AddRange(productDiseases);
             context.SaveChanges();
         }
     }

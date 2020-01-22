@@ -5,15 +5,15 @@ using System.Threading.Tasks;
 
 namespace AgrochemicalAPI.Models
 {
-    public class ProductCropIllness
+    public class ProductCropDisease
     {
-            public int ProductCropIllnessId { get; set; }
+            public int ProductCropDiseaseId { get; set; }
             public int ProductId { get; set; }
             public int CropId { get; set; }
-            public int IllnessId { get; set; }
+            public int DiseaseId { get; set; }
             public Product Product { get; set; }
             public Crop Crop { get; set; }
-            public Illness Illness { get; set; }
+            public Disease Disease { get; set; }
             public string Dosage { get; set; }
 
     }

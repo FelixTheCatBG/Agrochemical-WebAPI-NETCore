@@ -6,7 +6,7 @@ using AgrochemicalAPI.Models;
 
 namespace AgrochemicalAPI.DTOs
 {
-    public class IllnessDto
+    public class DiseaseDto
     {
         public string Name { get; set; }
         public ICollection<Symptom> Symptom { get; set; } = new List<Symptom>();

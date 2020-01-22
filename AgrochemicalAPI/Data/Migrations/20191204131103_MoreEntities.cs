@@ -69,7 +69,7 @@ namespace AgrochemicalAPI.Data.Migrations
                 });
 
             migrationBuilder.CreateTable(
-                name: "ProductIllnesses",
+                name: "ProductDiseases",
                 columns: table => new
                 {
                     ProductId = table.Column<int>(nullable: false),
@@ -93,7 +93,7 @@ namespace AgrochemicalAPI.Data.Migrations
                 });
 
             migrationBuilder.CreateTable(
-                name: "IllnessSymptoms",
+                name: "DiseaseSymptoms",
                 columns: table => new
                 {
                     IllnessId = table.Column<int>(nullable: false),
@@ -117,7 +117,7 @@ namespace AgrochemicalAPI.Data.Migrations
                 });
 
             migrationBuilder.CreateTable(
-                name: "CropIllnesses",
+                name: "CropDiseases",
                 columns: table => new
                 {
                     CropId = table.Column<int>(nullable: false),
@@ -166,8 +166,8 @@ namespace AgrochemicalAPI.Data.Migrations
 
             migrationBuilder.CreateIndex(
                 name: "IX_CropIllnesses_IllnessId",
-                table: "CropIllnesses",
-                column: "IllnessId");
+                table: "CropDiseases",
+                column: "DiseaseId");
 
             migrationBuilder.CreateIndex(
                 name: "IX_CropProducts_ProductId",
@@ -181,28 +181,28 @@ namespace AgrochemicalAPI.Data.Migrations
 
             migrationBuilder.CreateIndex(
                 name: "IX_IllnessSymptoms_SymptomId",
-                table: "IllnessSymptoms",
+                table: "DiseaseSymptoms",
                 column: "SymptomId");
 
             migrationBuilder.CreateIndex(
                 name: "IX_ProductIllnesses_IllnessId",
-                table: "ProductIllnesses",
-                column: "IllnessId");
+                table: "ProductDiseases",
+                column: "DiseaseId");
         }
 
         protected override void Down(MigrationBuilder migrationBuilder)
         {
             migrationBuilder.DropTable(
-                name: "CropIllnesses");
+                name: "CropDiseases");
 
             migrationBuilder.DropTable(
                 name: "CropProducts");
 
             migrationBuilder.DropTable(
-                name: "IllnessSymptoms");
+                name: "DiseaseSymptoms");
 
             migrationBuilder.DropTable(
-                name: "ProductIllnesses");
+                name: "ProductDiseases");
 
             migrationBuilder.DropTable(
                 name: "Crops");

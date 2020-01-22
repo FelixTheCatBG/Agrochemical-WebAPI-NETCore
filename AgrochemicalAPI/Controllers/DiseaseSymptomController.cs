@@ -15,12 +15,12 @@ namespace AgrochemicalAPI.Controllers
 {
     [Route("api/[controller]")]
     [ApiController]
-    public class IllnessSymptomController : ControllerBase
+    public class DiseaseSymptomController : ControllerBase
     {
         private readonly AgrochemicalDbContext _context;
         private readonly IDecisionBuilder _decisionBuilder;
 
-        public IllnessSymptomController(AgrochemicalDbContext context, IDecisionBuilder decisionBuilder)
+        public DiseaseSymptomController(AgrochemicalDbContext context, IDecisionBuilder decisionBuilder)
         {
             _context = context;
             _decisionBuilder = decisionBuilder;
@@ -30,7 +30,7 @@ namespace AgrochemicalAPI.Controllers
         //[HttpGet]
         //public async Task<ActionResult<IEnumerable<IllnessSymptom>>> GetIllnessSymptoms()
         //{
-        //    return await _context.IllnessSymptoms.Include(ilnes => ilnes.Symptom).Include(ilnes => ilnes.Illness).ToListAsync();
+        //    return await _context.IllnessSymptoms.Include(ilnes => ilnes.Symptom).Include(ilnes => ilnes.Disease).ToListAsync();
         //}
 
         // GET: api/IllnessSymptom/5
@@ -68,9 +68,9 @@ namespace AgrochemicalAPI.Controllers
 
         // PUT: api/IllnessSymptom/5
         [HttpPut("{id}")]
-        public async Task<IActionResult> PutIllnessSymptom(int id, IllnessSymptom illnessSymptom)
+        public async Task<IActionResult> PutIllnessSymptom(int id, DiseaseSymptom illnessSymptom)
         {
-            if (id != illnessSymptom.IllnessId)
+            if (id != illnessSymptom.DiseaseId)
             {
                 return BadRequest();
             }
@@ -107,7 +107,7 @@ namespace AgrochemicalAPI.Controllers
         //    }
         //    catch (DbUpdateException)
         //    {
-        //        if (IllnessSymptomExists(illnessSymptom.IllnessId))
+        //        if (IllnessSymptomExists(illnessSymptom.DiseaseId))
         //        {
         //            return Conflict();
         //        }
@@ -117,20 +117,20 @@ namespace AgrochemicalAPI.Controllers
         //        }
         //    }
 
-        //    return CreatedAtAction("GetIllnessSymptom", new { id = illnessSymptom.IllnessId }, illnessSymptom);
+        //    return CreatedAtAction("GetIllnessSymptom", new { id = illnessSymptom.DiseaseId }, illnessSymptom);
         //}
 
         // DELETE: api/IllnessSymptom/5
         [HttpDelete("{id}")]
-        public async Task<ActionResult<IllnessSymptom>> DeleteIllnessSymptom(int id)
+        public async Task<ActionResult<DiseaseSymptom>> DeleteIllnessSymptom(int id)
         {
-            var illnessSymptom = await _context.IllnessSymptoms.FindAsync(id);
+            var illnessSymptom = await _context.DiseaseSymptoms.FindAsync(id);
             if (illnessSymptom == null)
             {
                 return NotFound();
             }
 
-            _context.IllnessSymptoms.Remove(illnessSymptom);
+            _context.DiseaseSymptoms.Remove(illnessSymptom);
             await _context.SaveChangesAsync();
 
             return illnessSymptom;
@@ -138,7 +138,7 @@ namespace AgrochemicalAPI.Controllers
 
         private bool IllnessSymptomExists(int id)
         {
-            return _context.IllnessSymptoms.Any(e => e.IllnessId == id);
+            return _context.DiseaseSymptoms.Any(e => e.DiseaseId == id);
         }
     }
 }

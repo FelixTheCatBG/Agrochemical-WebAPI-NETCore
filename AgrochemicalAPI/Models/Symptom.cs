@@ -13,6 +13,6 @@ namespace AgrochemicalAPI.Models
 
         public string Description { get; set; }
 
-        public ICollection<IllnessSymptom> IllnessSymptoms { get; set; } = new HashSet<IllnessSymptom>();
+        public ICollection<DiseaseSymptom> DiseaseSymptoms { get; set; } = new HashSet<DiseaseSymptom>();
     }
 }

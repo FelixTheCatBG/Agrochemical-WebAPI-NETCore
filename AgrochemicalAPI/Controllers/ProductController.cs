@@ -40,10 +40,10 @@ namespace AgrochemicalAPI.Controllers
                         Name = cp.Crop.Name,
                         Category = cp.Crop.CropCategory.Name
                     }).ToList(),
-                    Illnesses = p.ProductIllnesses.Select(pi => new
+                    Illnesses = p.ProductDiseases.Select(pi => new
                     {
-                       IllnessId = pi.Illness.Id,
-                       IllnessName = pi.Illness.Name
+                       IllnessId = pi.Disease.Id,
+                       IllnessName = pi.Disease.Name
                     }).ToList()
                 }).ToList();
 
@@ -61,10 +61,10 @@ namespace AgrochemicalAPI.Controllers
                      ProductId = p.Id,
                      ProductName= p.Name,
                      Category = p.ProductCategory.Name,
-                     Illnesses = p.ProductIllnesses.Select(pi => new
+                     Illnesses = p.ProductDiseases.Select(pi => new
                      {
-                         IllnessId = pi.Illness.Id,
-                         IllnessName = pi.Illness.Name
+                         IllnessId = pi.Disease.Id,
+                         IllnessName = pi.Disease.Name
                      }).ToList(),
                      Packages = p.Packages.Select(pa => new
                      {

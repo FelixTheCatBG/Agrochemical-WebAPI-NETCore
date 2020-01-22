@@ -53,13 +53,13 @@ namespace AgrochemicalAPI.Data.Migrations
                 {
                     b.Property<int>("CropId");
 
-                    b.Property<int>("IllnessId");
+                    b.Property<int>("DiseaseId");
 
-                    b.HasKey("CropId", "IllnessId");
+                    b.HasKey("CropId", "DiseaseId");
 
-                    b.HasIndex("IllnessId");
+                    b.HasIndex("DiseaseId");
 
-                    b.ToTable("CropIllnesses");
+                    b.ToTable("CropDiseases");
                 });
 
             modelBuilder.Entity("AgrochemicalAPI.Models.CropProduct", b =>
@@ -75,7 +75,7 @@ namespace AgrochemicalAPI.Data.Migrations
                     b.ToTable("CropProducts");
                 });
 
-            modelBuilder.Entity("AgrochemicalAPI.Models.Illness", b =>
+            modelBuilder.Entity("AgrochemicalAPI.Models.Disease", b =>
                 {
                     b.Property<int>("Id")
                         .ValueGeneratedOnAdd()
@@ -92,15 +92,15 @@ namespace AgrochemicalAPI.Data.Migrations
 
             modelBuilder.Entity("AgrochemicalAPI.Models.IllnessSymptom", b =>
                 {
-                    b.Property<int>("IllnessId");
+                    b.Property<int>("DiseaseId");
 
                     b.Property<int>("SymptomId");
 
-                    b.HasKey("IllnessId", "SymptomId");
+                    b.HasKey("DiseaseId", "SymptomId");
 
                     b.HasIndex("SymptomId");
 
-                    b.ToTable("IllnessSymptoms");
+                    b.ToTable("DiseaseSymptoms");
                 });
 
             modelBuilder.Entity("AgrochemicalAPI.Models.Package", b =>
@@ -162,13 +162,13 @@ namespace AgrochemicalAPI.Data.Migrations
                 {
                     b.Property<int>("ProductId");
 
-                    b.Property<int>("IllnessId");
+                    b.Property<int>("DiseaseId");
 
-                    b.HasKey("ProductId", "IllnessId");
+                    b.HasKey("ProductId", "DiseaseId");
 
-                    b.HasIndex("IllnessId");
+                    b.HasIndex("DiseaseId");
 
-                    b.ToTable("ProductIllnesses");
+                    b.ToTable("ProductDiseases");
                 });
 
             modelBuilder.Entity("AgrochemicalAPI.Models.Symptom", b =>
@@ -418,13 +418,13 @@ namespace AgrochemicalAPI.Data.Migrations
             modelBuilder.Entity("AgrochemicalAPI.Models.CropIllness", b =>
                 {
                     b.HasOne("AgrochemicalAPI.Models.Crop", "Crop")
-                        .WithMany("CropIllnesses")
+                        .WithMany("CropDiseases")
                         .HasForeignKey("CropId")
                         .OnDelete(DeleteBehavior.Cascade);
 
-                    b.HasOne("AgrochemicalAPI.Models.Illness", "Illness")
-                        .WithMany("CropIllnesses")
-                        .HasForeignKey("IllnessId")
+                    b.HasOne("AgrochemicalAPI.Models.Disease", "Disease")
+                        .WithMany("CropDiseases")
+                        .HasForeignKey("DiseaseId")
                         .OnDelete(DeleteBehavior.Cascade);
                 });
 
@@ -443,13 +443,13 @@ namespace AgrochemicalAPI.Data.Migrations
 
             modelBuilder.Entity("AgrochemicalAPI.Models.IllnessSymptom", b =>
                 {
-                    b.HasOne("AgrochemicalAPI.Models.Illness", "Illness")
-                        .WithMany("IllnessSymptoms")
-                        .HasForeignKey("IllnessId")
+                    b.HasOne("AgrochemicalAPI.Models.Disease", "Disease")
+                        .WithMany("DiseaseSymptoms")
+                        .HasForeignKey("DiseaseId")
                         .OnDelete(DeleteBehavior.Cascade);
 
                     b.HasOne("AgrochemicalAPI.Models.Symptom", "Symptom")
-                        .WithMany("IllnessSymptoms")
+                        .WithMany("DiseaseSymptoms")
                         .HasForeignKey("SymptomId")
                         .OnDelete(DeleteBehavior.Cascade);
                 });
@@ -472,13 +472,13 @@ namespace AgrochemicalAPI.Data.Migrations
 
             modelBuilder.Entity("AgrochemicalAPI.Models.ProductIllness", b =>
                 {
-                    b.HasOne("AgrochemicalAPI.Models.Illness", "Illness")
-                        .WithMany("ProductIllnesses")
-                        .HasForeignKey("IllnessId")
+                    b.HasOne("AgrochemicalAPI.Models.Disease", "Disease")
+                        .WithMany("ProductDiseases")
+                        .HasForeignKey("DiseaseId")
                         .OnDelete(DeleteBehavior.Cascade);
 
                     b.HasOne("AgrochemicalAPI.Models.Product", "Product")
-                        .WithMany("ProductIllnesses")
+                        .WithMany("ProductDiseases")
                         .HasForeignKey("ProductId")
                         .OnDelete(DeleteBehavior.Cascade);
                 });
