@@ -8,11 +8,20 @@ namespace AgrochemicalAPI.Models
     public class Product
     {
         public int Id { get; set; }
+
         public string Name { get; set; }
+
+        public string ActiveIngredient { get; set; }
+
+        public string Formulation { get; set; }
 
         public string Description { get; set; }
 
-        public string Dose { get; set; }
+        public string Manufacturer { get; set; }
+        
+        public string MechanismOfAction { get; set; }
+
+        public string HowToUseRecommendation { get; set; }
 
         public int ProductCategoryId { get; set; }
 
@@ -20,9 +29,7 @@ namespace AgrochemicalAPI.Models
 
         public ICollection<Package> Packages { get; set; } = new HashSet<Package>();
 
-        public ICollection<CropProduct> CropProducts { get; set; } = new HashSet<CropProduct>();
-
-        public ICollection<ProductDisease> ProductDiseases { get; set; } = new HashSet<ProductDisease>();
+        public ICollection<ProductAdvantage> ProductAdvantages { get; set; } = new HashSet<ProductAdvantage>();
 
         public ICollection<ProductCropDisease> ProductCropDiseases { get; set; } = new HashSet<ProductCropDisease>();
 

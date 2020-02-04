@@ -16,12 +16,10 @@ namespace AgrochemicalAPI.Data
         public DbSet<Package> Packages { get; set; }
         public DbSet<CropCategory> CropCategories { get; set; }
         public DbSet<Crop> Crops { get; set; }
-        public DbSet<CropProduct> CropProducts { get; set; }
         public DbSet<Disease> Diseases { get; set; }
         public DbSet<Symptom> Symptoms { get; set; }
         public DbSet<DiseaseSymptom> DiseaseSymptoms { get; set; }
-        public DbSet<CropDisease> CropDiseases { get; set; }
-        public DbSet<ProductDisease> ProductDiseases { get; set; }
+        public DbSet<ProductAdvantage> ProductAdvantages { get; set; }
         public DbSet<TokenModel> Tokens { get; set; }
         public DbSet<ProductCropDisease> ProductCropDiseases { get; set; }
 
@@ -48,8 +46,14 @@ namespace AgrochemicalAPI.Data
             //Product - Packages  One-to-Many
             builder.Entity<Product>()
                 .HasMany(pr => pr.Packages)
-                .WithOne(pa => pa.Product)
-                .HasForeignKey(pa => pa.ProductId);
+                .WithOne(pac => pac.Product)
+                .HasForeignKey(pac => pac.ProductId);
+
+            //Product - ProductAdvantages  One-to-Many
+            builder.Entity<Product>()
+            .HasMany(pr => pr.ProductAdvantages)
+            .WithOne(pa => pa.Product)
+            .HasForeignKey(pa => pa.ProductId);
 
             //ProductCategory - Products One-to-Many
             builder.Entity<CropCategory>()
@@ -57,47 +61,47 @@ namespace AgrochemicalAPI.Data
                 .WithOne(c => c.CropCategory)
                 .HasForeignKey(c => c.CropCategoryId);
 
-            //Crop - Product Many-to-Many with composite key
-            builder.Entity<CropProduct>()
-                .HasKey(cp => new { cp.CropId, cp.ProductId });
+            ////Crop - Product Many-to-Many with composite key
+            //builder.Entity<CropProduct>()
+            //    .HasKey(cp => new { cp.CropId, cp.ProductId });
 
-            builder.Entity<Crop>()
-                .HasMany(c => c.CropProducts)
-                .WithOne(cp => cp.Crop)
-                .HasForeignKey(cp => cp.CropId);
+            //builder.Entity<Crop>()
+            //    .HasMany(c => c.CropProducts)
+            //    .WithOne(cp => cp.Crop)
+            //    .HasForeignKey(cp => cp.CropId);
 
-            builder.Entity<Product>()
-                .HasMany(p => p.CropProducts)
-                .WithOne(cp => cp.Product)
-                .HasForeignKey(cp => cp.ProductId);
+            //builder.Entity<Product>()
+            //    .HasMany(p => p.CropProducts)
+            //    .WithOne(cp => cp.Product)
+            //    .HasForeignKey(cp => cp.ProductId);
 
-            //Crop - Disease Many-to-Many with composite key
-            builder.Entity<CropDisease>()
-                .HasKey(ci => new { ci.CropId, ci.DiseaseId });
+            ////Crop - Disease Many-to-Many with composite key
+            //builder.Entity<CropDisease>()
+            //    .HasKey(ci => new { ci.CropId, ci.DiseaseId });
 
-            builder.Entity<Crop>()
-                .HasMany(c => c.CropDiseases)
-                .WithOne(ci => ci.Crop)
-                .HasForeignKey(ci => ci.CropId);
+            //builder.Entity<Crop>()
+            //    .HasMany(c => c.CropDiseases)
+            //    .WithOne(ci => ci.Crop)
+            //    .HasForeignKey(ci => ci.CropId);
 
-            builder.Entity<Disease>()
-                .HasMany(p => p.CropDiseases)
-                .WithOne(ci => ci.Disease)
-                .HasForeignKey(ci => ci.DiseaseId);
+            //builder.Entity<Disease>()
+            //    .HasMany(p => p.CropDiseases)
+            //    .WithOne(ci => ci.Disease)
+            //    .HasForeignKey(ci => ci.DiseaseId);
 
-            //Product - Disease Many-to-Many with composite key
-            builder.Entity<ProductDisease>()
-                .HasKey(ci => new { ci.ProductId, ci.DiseaseId });
+            ////Product - Disease Many-to-Many with composite key
+            //builder.Entity<ProductDisease>()
+            //    .HasKey(ci => new { ci.ProductId, ci.DiseaseId });
 
-            builder.Entity<Product>()
-                .HasMany(c => c.ProductDiseases)
-                .WithOne(pi => pi.Product)
-                .HasForeignKey(pi => pi.ProductId);
+            //builder.Entity<Product>()
+            //    .HasMany(c => c.ProductDiseases)
+            //    .WithOne(pi => pi.Product)
+            //    .HasForeignKey(pi => pi.ProductId);
 
-            builder.Entity<Disease>()
-                .HasMany(p => p.ProductDiseases)
-                .WithOne(pi => pi.Disease)
-                .HasForeignKey(pi => pi.DiseaseId);
+            //builder.Entity<Disease>()
+            //    .HasMany(p => p.ProductDiseases)
+            //    .WithOne(pi => pi.Disease)
+            //    .HasForeignKey(pi => pi.DiseaseId);
 
             //Disease - Symptom Many-to-Many with composite key
             builder.Entity<DiseaseSymptom>()
@@ -113,6 +117,7 @@ namespace AgrochemicalAPI.Data
                 .WithOne(ils => ils.Symptom)
                 .HasForeignKey(ils => ils.SymptomId);
 
+            //
             builder.Entity<ProductCropDisease>()
             .HasKey(e => new { e.ProductCropDiseaseId });
 

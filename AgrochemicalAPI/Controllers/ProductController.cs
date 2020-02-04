@@ -32,19 +32,19 @@ namespace AgrochemicalAPI.Controllers
                     Id = p.Id,
                     Name = p.Name,
                     Description = p.Description,
-                    Dose = p.Dose,
+                    //Dose = p.Dose,
                     Category = p.ProductCategory.Name,
-                    Crops = p.CropProducts.Select(cp => new
-                    {
-                        Id = cp.CropId,
-                        Name = cp.Crop.Name,
-                        Category = cp.Crop.CropCategory.Name
-                    }).ToList(),
-                    Illnesses = p.ProductDiseases.Select(pi => new
-                    {
-                       IllnessId = pi.Disease.Id,
-                       IllnessName = pi.Disease.Name
-                    }).ToList()
+                    //Crops = p.CropProducts.Select(cp => new
+                    //{
+                    //    Id = cp.CropId,
+                    //    Name = cp.Crop.Name,
+                    //    Category = cp.Crop.CropCategory.Name
+                    //}).ToList(),
+                    //Illnesses = p.ProductDiseases.Select(pi => new
+                    //{
+                    //   IllnessId = pi.Disease.Id,
+                    //   IllnessName = pi.Disease.Name
+                    //}).ToList()
                 }).ToList();
 
             return Ok(productsList);
@@ -60,11 +60,21 @@ namespace AgrochemicalAPI.Controllers
                  {
                      ProductId = p.Id,
                      ProductName= p.Name,
+                     ActiveIngredient = p.ActiveIngredient,
+                     Description = p.Description,
+                     Mechanism = p.MechanismOfAction,
+                     HowToRecommendation = p.HowToUseRecommendation,
                      Category = p.ProductCategory.Name,
-                     Illnesses = p.ProductDiseases.Select(pi => new
+                     ProductAdvantages = p.ProductAdvantages.Select(pr => new 
+                     { 
+                     Advantage = pr.Advantage
+                     }).ToList(),
+                     ProductCropDisease = p.ProductCropDiseases.Select(pr => new
                      {
-                         IllnessId = pi.Disease.Id,
-                         IllnessName = pi.Disease.Name
+                         Crop = pr.Crop.Name,
+                         Disease = pr.Disease.Name,
+                         Dosage = pr.Dosage,
+                         Period = pr.Period
                      }).ToList(),
                      Packages = p.Packages.Select(pa => new
                      {
@@ -72,10 +82,6 @@ namespace AgrochemicalAPI.Controllers
                          PackageUnit = pa.Unit,
                          PackagePrice = pa.Price
                      }).ToList(),
-                     ProductCrops = p.CropProducts.Select(cpp => new {
-                        CropName = cpp.Crop.Name,
-                        Dose = cpp.Dose
-                     }).ToList()
                  }).SingleOrDefault();
 
             if (result == null)

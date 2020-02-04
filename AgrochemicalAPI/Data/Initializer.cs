@@ -40,19 +40,93 @@ namespace AgrochemicalAPI.Data
 
                 var productCategories = new[]
             {
-                new ProductCategory() {Name = "Pesticide"},
-                new ProductCategory() {Name = "Insecticide"}
+                    new ProductCategory() {Name = "Fungicide"},
+                    new ProductCategory() {Name = "Herbecide"},
+                    new ProductCategory() {Name = "Insecticide"}
             };
 
             var products = new[]
             {
-                new Product() {Name="Agrochemical100",Description="Description1",Dose = "250ml/100l", ProductCategory=productCategories[0]},
-                new Product() {Name="Agrochemical101",Description="Description2",Dose = "350ml/100l", ProductCategory=productCategories[0]},
-                new Product() {Name="Agrochemical102",Description="Description3",Dose = "450ml/100l", ProductCategory=productCategories[1]},
-                new Product() {Name="Agrochemical103",Description="Description1",Dose = "250ml/100l", ProductCategory=productCategories[0]},
-                new Product() {Name="Agrochemical104",Description="Description1",Dose = "250ml/100l", ProductCategory=productCategories[0]},
-                new Product() {Name="Agrochemical105",Description="Description1",Dose = "250ml/100l", ProductCategory=productCategories[1]},
-                new Product() {Name="Agrochemical106",Description="Description1",Dose = "250ml/100l", ProductCategory=productCategories[1]},
+                new Product() {
+                    Name="Diagonal",
+                    ActiveIngredient="Azoxystrobin 250g/l",
+                    Description="Description1",
+                    Manufacturer = "Albaugh",
+                    MechanismOfAction="A combination of two active substances with a different mode of action. " +
+                    "Petoxamide is a systemic herbicide in the group of chloracetamides that is taken up by the roots of a sprouting plant." +
+                    " Petoxamide inhibits weed emergence by inhibiting long-chain fatty acid synthesis and inhibiting cell division.",
+                    ProductCategory=productCategories[0]
+                },
+                new Product() {
+                    Name="Domnik 250",
+                    ActiveIngredient="Tebuconazole 250 g / l",
+                    Description="DOMNIK 250 EB is a systemic triazole fungicide for use in vineyards.",
+                    Manufacturer = "SC",
+                    MechanismOfAction="Systemic strobilurin fungicide with protective, curative and eradicating action",
+                    ProductCategory=productCategories[0]
+                },
+                new Product() {
+                    Name="Impact 25 SK",
+                    ActiveIngredient="Flutriafol 250 g / l",
+                    Manufacturer = "FMC",
+                    Description="Description1",
+                    MechanismOfAction="Systemic strobilurin fungicide with protective, curative and eradicating action",
+                    ProductCategory=productCategories[0]
+                },
+                new Product() {
+                    Name="Buzin",
+                    ActiveIngredient="Azoxystrobin",
+                    Description="Description1",
+                    Manufacturer = "SC",
+                    MechanismOfAction="Systemic strobilurin fungicide with protective, curative and eradicating action",
+                    ProductCategory=productCategories[1]
+                },
+                new Product() {
+                    Name="Nero ™ EC",
+                    ActiveIngredient="400 g / l petoxamide + 24 g / l clomazone",
+                    Manufacturer = "FMC",
+                    Description="Description1",
+                    MechanismOfAction="Systemic strobilurin fungicide with protective, curative and eradicating action",
+                    ProductCategory=productCategories[1]
+                },
+                new Product() {
+                    Name="CLIOFAR 600 SL",
+                    ActiveIngredient="Clopyralid 600 g / l",
+                    Manufacturer = "Arysta",
+                    Description="Description1",
+                    MechanismOfAction="Systemic strobilurin fungicide with protective, curative and eradicating action",
+                    ProductCategory=productCategories[1]
+                },
+                new Product() {
+                    Name="DOMINATOR ULTRA",
+                    ActiveIngredient="glyphosate 360 g / l",
+                    Description="Description1",
+                    Manufacturer= "Albaugh",
+                    MechanismOfAction="Systemic strobilurin fungicide with protective, curative and eradicating action",
+                    ProductCategory=productCategories[1]
+                },
+                new Product() {
+                    Name="FASTRIN 15 VG",
+                    ActiveIngredient="Alpha-Cypermetrine 150g / kg",
+                    Description="Description1",
+                    Manufacturer = "SC",
+                    MechanismOfAction="Non-systemic contact and gastric pyrethroid insecticide",
+                    ProductCategory=productCategories[2]
+                },
+                new Product() {
+                    Name="CORAGEN 20 SC",
+                    ActiveIngredient="Azoxystrobin",
+                    Manufacturer = "FMC",
+                    Description="Description1",
+                    MechanismOfAction="Non-systemic contact and gastric pyrethroid insecticide",
+                    ProductCategory=productCategories[2]
+                },
+                new Product() {Name="Agrochemical101",Description="DOMNIK 250 EB is a systemic triazole fungicide for use in vines.", ProductCategory=productCategories[0]},
+                new Product() {Name="Agrochemical102",Description="Description3", ProductCategory=productCategories[1]},
+                new Product() {Name="Agrochemical103",Description="Description1",ProductCategory=productCategories[0]},
+                new Product() {Name="Agrochemical104",Description="Description1", ProductCategory=productCategories[0]},
+                new Product() {Name="Agrochemical105",Description="Description1", ProductCategory=productCategories[1]},
+                new Product() {Name="Agrochemical106",Description="Description1", ProductCategory=productCategories[1]},
             };
             context.Products.AddRange(products);
             context.SaveChanges();
@@ -77,26 +151,32 @@ namespace AgrochemicalAPI.Data
             context.CropCategories.AddRange(cropCategories);
             context.SaveChanges();
 
-
             //Seeding with Crops
             var crops = new[]
             {
-                 new Crop() {Name = "Tomatoes", CropCategory=cropCategories[0] },
-                 new Crop() {Name = "Corn", CropCategory=cropCategories[0] },
-                 new Crop() {Name = "Peppers", CropCategory=cropCategories[1] }, 
-                 new Crop() {Name = "Apples", CropCategory=cropCategories[2] }
+                 new Crop() {Name = "Cucumbers", },
+                 new Crop() {Name = "Melons",  },
+                 new Crop() {Name = "Pumpkins",  },
+                 new Crop() {Name = "Watermelons ",  },
+                 new Crop() {Name = "Tomatoes",  },
+                 new Crop() {Name = "Wheat",  },
+                 new Crop() {Name = "Barley",  },
+                 new Crop() {Name = "Sugar beet", }, 
+                 new Crop() {Name = "Rice",  },
+                 new Crop() {Name = "Vineyards"}
             };
             context.Crops.AddRange(crops);
             context.SaveChanges();
 
-            //Seeding with Illnesses
+            //Seeding with Diseases
             var diseases = new[]
             {
-                 new Disease() {Name = "WhiteIllness", Description="Description1" },
-                 new Disease() {Name = "YellowIllness", Description="Description2" },
-                 new Disease() {Name = "RedIllness", Description="Description3" },
-                 new Disease() {Name = "BlackIllness", Description="Description4" },
-                 new Disease() {Name = "Illness1Symptoms", Description="Description5" },
+                 new Disease() {Name = "Powdery mildew", Description="Description1" },
+                 new Disease() {Name = "Brown Rust", Description="Description2" },
+                 new Disease() {Name = "Yellow Rust", Description="Description3" },
+                 new Disease() {Name = "Rusts", Description="Description3" },
+                 new Disease() {Name = "Church sporosis", Description="Description4" },
+                 new Disease() {Name = "Septoria", Description="Description5" },
                  new Disease() {Name = "Illness2Symptoms", Description="Description6" },
             };
 
@@ -126,16 +206,10 @@ namespace AgrochemicalAPI.Data
                 new DiseaseSymptom(){ Disease = diseases[0], Symptom = symptoms[2] },
                 new DiseaseSymptom(){ Disease = diseases[0], Symptom = symptoms[3] },
 
-                //new IllnessSymptom(){ Disease = illnesses[1], Symptom = symptoms[0] },
-                //new IllnessSymptom(){ Disease = illnesses[1], Symptom = symptoms[1] },
-                //new IllnessSymptom(){ Disease = illnesses[1], Symptom = symptoms[2] },
-
                 new DiseaseSymptom(){ Disease = diseases[2], Symptom = symptoms[1] },
                 new DiseaseSymptom(){ Disease = diseases[2], Symptom = symptoms[2] },
                 new DiseaseSymptom(){ Disease = diseases[2], Symptom = symptoms[3] },
 
-                //new IllnessSymptom(){ Disease = illnesses[3], Symptom = symptoms[1] },
-                //new IllnessSymptom(){ Disease = illnesses[3], Symptom = symptoms[2] },
 
                 new DiseaseSymptom(){ Disease = diseases[4], Symptom = symptoms[1] },
                 new DiseaseSymptom(){ Disease = diseases[4], Symptom = symptoms[2] },
@@ -150,53 +224,30 @@ namespace AgrochemicalAPI.Data
             };
             context.DiseaseSymptoms.AddRange(diseaseSymptoms);
             context.SaveChanges();
-
-            var cropProducts = new[]
-            {
-                new CropProduct(){ Product = products[0], Crop = crops[0], Dose = "SOME DOSE 1"},
-                new CropProduct(){ Product = products[0], Crop = crops[1], Dose = "SOME DOSE 2"},
-                new CropProduct(){ Product = products[0], Crop = crops[2], Dose = "SOME DOSE 3"},
-                new CropProduct(){ Product = products[1], Crop = crops[0], Dose = "SOME DOSE 4"},
-                new CropProduct(){ Product = products[2], Crop = crops[0], Dose = "SOME DOSE 5"},
-                new CropProduct(){ Product = products[2], Crop = crops[1], Dose = "SOME DOSE 7"},
-
-            };
-            context.CropProducts.AddRange(cropProducts);
-            context.SaveChanges();
-
-            var cropDiseases= new[]
-            {
-                new CropDisease(){ Crop = crops[0], Disease = diseases[0]},
-                new CropDisease(){ Crop = crops[1], Disease = diseases[0]},
-                new CropDisease(){ Crop = crops[2], Disease = diseases[1]},
-                new CropDisease(){ Crop = crops[0], Disease = diseases[1]},
-            };
-            context.CropDiseases.AddRange(cropDiseases);
-            context.SaveChanges();
-
+            //new Crop() { Name = "Cucumbers", },
+            //     new Crop() { Name = "Melons", },
+            //     new Crop() { Name = "Pumpkins", },
+            //     new Crop() { Name = "Watermelons ", },
+            //     new Crop() { Name = "Tomatoes", },
             var productCropDiseases = new[]
-{
-                new ProductCropDisease(){Product = products[0], Crop = crops[0], Disease = diseases[0],Dosage="2323aaa"},
-                new ProductCropDisease(){Product = products[0], Crop = crops[1], Disease = diseases[0],Dosage="2323aaa"},
-                new ProductCropDisease(){ Product = products[1],Crop = crops[2], Disease = diseases[1],Dosage="2323aaa"},
-                new ProductCropDisease(){ Product = products[1],Crop = crops[0], Disease = diseases[1],Dosage="2323aaa"},
+            {
+                new ProductCropDisease(){Product = products[0], Crop = crops[0], Disease = diseases[0], Dosage = "80ml / decare", Period="1 day"},
+                new ProductCropDisease(){Product = products[0], Crop = crops[1], Disease = diseases[0], Dosage = "80ml / decare", Period="3 days"},
+                new ProductCropDisease(){Product = products[0], Crop = crops[2], Disease = diseases[0], Dosage = "80ml / decare", Period="3 days"},
+                new ProductCropDisease(){Product = products[0], Crop = crops[3], Disease = diseases[0], Dosage = "80ml / decare",Period="3 days"},
+                new ProductCropDisease(){Product = products[0], Crop = crops[4], Disease = diseases[0], Dosage = "80-100ml / decare", Period="3 days"},
+                new ProductCropDisease(){Product = products[0], Crop = crops[5], Disease = diseases[0], Dosage = "100ml / decare",Period="35 days"},
+                new ProductCropDisease(){Product = products[0], Crop = crops[6], Disease = diseases[0], Dosage = "80ml / decare",Period="35 days"},
+                new ProductCropDisease(){Product = products[1], Crop = crops[9], Disease = diseases[0], Dosage="40 ml / decare", Period="14 days"},
+                new ProductCropDisease(){Product = products[1], Crop = crops[5], Disease = diseases[3], Dosage = "100ml / decare", Period="30 days"},
+                new ProductCropDisease(){Product = products[1], Crop = crops[6], Disease = diseases[3], Dosage="100ml / decare", Period="30 days"},
+                new ProductCropDisease(){Product = products[2], Crop = crops[7], Disease = diseases[3], Dosage="25 ml / decare", Period="30 days"},
+                new ProductCropDisease(){Product = products[2], Crop = crops[6], Disease = diseases[0], Dosage="50 ml / decare", Period="30 days"},
+                new ProductCropDisease(){Product = products[2], Crop = crops[6], Disease = diseases[0], Dosage="50 ml / decare", Period="30 days"},
             };
             context.ProductCropDiseases.AddRange(productCropDiseases);
             context.SaveChanges();
 
-            var productDiseases = new[]
-            {
-                new ProductDisease(){ Product = products[0], Disease = diseases[0]},
-                new ProductDisease(){ Product = products[0], Disease = diseases[1]},
-                new ProductDisease(){ Product = products[0], Disease = diseases[2]},
-                new ProductDisease(){ Product = products[1], Disease = diseases[0]},
-                new ProductDisease(){ Product = products[1], Disease = diseases[1]},
-                new ProductDisease(){ Product = products[1], Disease = diseases[2]},
-                new ProductDisease(){ Product = products[2], Disease = diseases[2]},
-                new ProductDisease(){ Product = products[2], Disease = diseases[1]}
-            };
-            context.ProductDiseases.AddRange(productDiseases);
-            context.SaveChanges();
         }
     }
 }

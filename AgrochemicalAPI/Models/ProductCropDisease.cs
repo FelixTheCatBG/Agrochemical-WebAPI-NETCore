@@ -15,6 +15,7 @@ namespace AgrochemicalAPI.Models
             public Crop Crop { get; set; }
             public Disease Disease { get; set; }
             public string Dosage { get; set; }
+            public string Period { get; set; }
 
     }
 }

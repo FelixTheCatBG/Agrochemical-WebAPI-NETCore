@@ -70,11 +70,11 @@ namespace AgrochemicalAPI.Controllers
                     {
                         IllnessSymptoms = ils.Symptom.Name
                     }).ToList(),
-                    Products = i.ProductDiseases.Select(pr => new
-                    {
-                        ProductId = pr.Product.Id,
-                        ProductName = pr.Product.Name
-                    }).ToList()
+                    //Products = i.ProductDiseases.Select(pr => new
+                    //{
+                    //    ProductId = pr.Product.Id,
+                    //    ProductName = pr.Product.Name
+                    //}).ToList()
                 }).ToList();
             
 

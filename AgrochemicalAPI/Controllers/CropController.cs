@@ -30,12 +30,12 @@ namespace AgrochemicalAPI.Controllers
             .Select(p => new
             {
                 CropName = p.Name,
-                CropIllnesses = p.CropDiseases.Select(cp => new
-                {
-                    Id = cp.CropId,
-                    Name = cp.Crop.Name,
-                    Symtpoms = cp.Disease.DiseaseSymtpoms.Select(ils => new { ils.Symptom.Name }).ToList()
-                }).ToList()
+                //CropIllnesses = p.CropDiseases.Select(cp => new
+                //{
+                //    Id = cp.CropId,
+                //    Name = cp.Crop.Name,
+                //    Symtpoms = cp.Disease.DiseaseSymtpoms.Select(ils => new { ils.Symptom.Name }).ToList()
+                //}).ToList()
             }).ToList();
 
             return Ok(result);
