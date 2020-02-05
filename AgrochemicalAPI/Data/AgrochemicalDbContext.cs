@@ -14,7 +14,6 @@ namespace AgrochemicalAPI.Data
         public DbSet<Product> Products { get; set; }
         public DbSet<ProductCategory> ProductCategories { get; set; }
         public DbSet<Package> Packages { get; set; }
-        public DbSet<CropCategory> CropCategories { get; set; }
         public DbSet<Crop> Crops { get; set; }
         public DbSet<Disease> Diseases { get; set; }
         public DbSet<Symptom> Symptoms { get; set; }
@@ -54,12 +53,6 @@ namespace AgrochemicalAPI.Data
             .HasMany(pr => pr.ProductAdvantages)
             .WithOne(pa => pa.Product)
             .HasForeignKey(pa => pa.ProductId);
-
-            //ProductCategory - Products One-to-Many
-            builder.Entity<CropCategory>()
-                .HasMany(cc => cc.Crops)
-                .WithOne(c => c.CropCategory)
-                .HasForeignKey(c => c.CropCategoryId);
 
             ////Crop - Product Many-to-Many with composite key
             //builder.Entity<CropProduct>()

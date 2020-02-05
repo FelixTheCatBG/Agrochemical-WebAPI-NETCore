@@ -28,9 +28,9 @@ namespace AgrochemicalAPI.Controllers
             var result = _context.Diseases                   
                       .Select(i => new
                       {
-                          ProductId = i.Id,
-                          ProductName = i.Name,
-                          Description = i.Description,
+                          DiseaseId = i.Id,
+                          DiseaseName = i.Name,
+                          DiseaseDescription = i.Description,
                           //Products = i.ProductDiseases.Select(pi => new
                           //{
                           //    ProductId = pi.Product.Id,
@@ -58,9 +58,9 @@ namespace AgrochemicalAPI.Controllers
                 .Where(i => i.Id == id)
                 .Select(i => new
                 {
-                    ProductId = i.Id,
-                    ProductName = i.Name,
-                    Description = i.Description,
+                    DiseaseId = i.Id,
+                    DiseaseName = i.Name,
+                    DiseaseDescription = i.Description,
                     //Products = i.ProductDiseases.Select(pi => new
                     //{
                     //    ProductId = pi.Product.Id,

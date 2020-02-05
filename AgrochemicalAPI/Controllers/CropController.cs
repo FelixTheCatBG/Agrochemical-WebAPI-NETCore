@@ -29,6 +29,7 @@ namespace AgrochemicalAPI.Controllers
             //.Where(cr => cr.CropCategory.Name =="Corn")
             .Select(p => new
             {
+                CropId = p.Id,
                 CropName = p.Name,
                 //CropIllnesses = p.CropDiseases.Select(cp => new
                 //{

@@ -121,10 +121,7 @@ namespace AgrochemicalAPI.Data
                     MechanismOfAction="Non-systemic contact and gastric pyrethroid insecticide",
                     ProductCategory=productCategories[2]
                 },
-                new Product() {Name="Agrochemical101",Description="DOMNIK 250 EB is a systemic triazole fungicide for use in vines.", ProductCategory=productCategories[0]},
                 new Product() {Name="Agrochemical102",Description="Description3", ProductCategory=productCategories[1]},
-                new Product() {Name="Agrochemical103",Description="Description1",ProductCategory=productCategories[0]},
-                new Product() {Name="Agrochemical104",Description="Description1", ProductCategory=productCategories[0]},
                 new Product() {Name="Agrochemical105",Description="Description1", ProductCategory=productCategories[1]},
                 new Product() {Name="Agrochemical106",Description="Description1", ProductCategory=productCategories[1]},
             };
@@ -139,16 +136,6 @@ namespace AgrochemicalAPI.Data
                 new Package() {Price=20,Amount = 30, Unit="l", Product=products[2]},
             };
             context.Packages.AddRange(packages);
-            context.SaveChanges();
-
-            var cropCategories = new[]
-            {
-                new CropCategory() {Name="Corns"},
-                new CropCategory() {Name="Trees"},
-                new CropCategory() {Name="Corn"},
-
-            };
-            context.CropCategories.AddRange(cropCategories);
             context.SaveChanges();
 
             //Seeding with Crops
@@ -177,7 +164,7 @@ namespace AgrochemicalAPI.Data
                  new Disease() {Name = "Rusts", Description="Description3" },
                  new Disease() {Name = "Church sporosis", Description="Description4" },
                  new Disease() {Name = "Septoria", Description="Description5" },
-                 new Disease() {Name = "Illness2Symptoms", Description="Description6" },
+                 new Disease() {Name = "LastIllness", Description="Description6" },
             };
 
             context.Diseases.AddRange(diseases);
@@ -224,27 +211,24 @@ namespace AgrochemicalAPI.Data
             };
             context.DiseaseSymptoms.AddRange(diseaseSymptoms);
             context.SaveChanges();
-            //new Crop() { Name = "Cucumbers", },
-            //     new Crop() { Name = "Melons", },
-            //     new Crop() { Name = "Pumpkins", },
-            //     new Crop() { Name = "Watermelons ", },
-            //     new Crop() { Name = "Tomatoes", },
-            var productCropDiseases = new[]
+ 
+           var productCropDiseases = new[]
             {
                 new ProductCropDisease(){Product = products[0], Crop = crops[0], Disease = diseases[0], Dosage = "80ml / decare", Period="1 day"},
                 new ProductCropDisease(){Product = products[0], Crop = crops[1], Disease = diseases[0], Dosage = "80ml / decare", Period="3 days"},
                 new ProductCropDisease(){Product = products[0], Crop = crops[2], Disease = diseases[0], Dosage = "80ml / decare", Period="3 days"},
-                new ProductCropDisease(){Product = products[0], Crop = crops[3], Disease = diseases[0], Dosage = "80ml / decare",Period="3 days"},
-                new ProductCropDisease(){Product = products[0], Crop = crops[4], Disease = diseases[0], Dosage = "80-100ml / decare", Period="3 days"},
-                new ProductCropDisease(){Product = products[0], Crop = crops[5], Disease = diseases[0], Dosage = "100ml / decare",Period="35 days"},
-                new ProductCropDisease(){Product = products[0], Crop = crops[6], Disease = diseases[0], Dosage = "80ml / decare",Period="35 days"},
+                new ProductCropDisease(){Product = products[0], Crop = crops[3], Disease = diseases[1], Dosage = "80ml / decare",Period="3 days"},
+                new ProductCropDisease(){Product = products[0], Crop = crops[4], Disease = diseases[3], Dosage = "80-100ml / decare", Period="3 days"},
+                new ProductCropDisease(){Product = products[0], Crop = crops[5], Disease = diseases[4], Dosage = "100ml / decare",Period="35 days"},
+                new ProductCropDisease(){Product = products[0], Crop = crops[6], Disease = diseases[1], Dosage = "80ml / decare",Period="35 days"},
                 new ProductCropDisease(){Product = products[1], Crop = crops[9], Disease = diseases[0], Dosage="40 ml / decare", Period="14 days"},
                 new ProductCropDisease(){Product = products[1], Crop = crops[5], Disease = diseases[3], Dosage = "100ml / decare", Period="30 days"},
                 new ProductCropDisease(){Product = products[1], Crop = crops[6], Disease = diseases[3], Dosage="100ml / decare", Period="30 days"},
                 new ProductCropDisease(){Product = products[2], Crop = crops[7], Disease = diseases[3], Dosage="25 ml / decare", Period="30 days"},
                 new ProductCropDisease(){Product = products[2], Crop = crops[6], Disease = diseases[0], Dosage="50 ml / decare", Period="30 days"},
-                new ProductCropDisease(){Product = products[2], Crop = crops[6], Disease = diseases[0], Dosage="50 ml / decare", Period="30 days"},
+                new ProductCropDisease(){Product = products[2], Crop = crops[6], Disease = diseases[5], Dosage="50 ml / decare", Period="30 days"},
             };
+
             context.ProductCropDiseases.AddRange(productCropDiseases);
             context.SaveChanges();
 
