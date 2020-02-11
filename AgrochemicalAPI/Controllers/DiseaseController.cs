@@ -7,6 +7,7 @@ using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using AgrochemicalAPI.Data;
 using AgrochemicalAPI.Models;
+using Microsoft.AspNetCore.Authorization;
 
 namespace AgrochemicalAPI.Controllers
 {
@@ -31,11 +32,6 @@ namespace AgrochemicalAPI.Controllers
                           DiseaseId = i.Id,
                           DiseaseName = i.Name,
                           DiseaseDescription = i.Description,
-                          //Products = i.ProductDiseases.Select(pi => new
-                          //{
-                          //    ProductId = pi.Product.Id,
-                          //    IllnessName = pi.Product.Name
-                          //}).ToList()
                           Symptoms = i.DiseaseSymtpoms.Select(ils => new
                           {
                              IllnessSymptoms = ils.Symptom.Name
@@ -61,20 +57,11 @@ namespace AgrochemicalAPI.Controllers
                     DiseaseId = i.Id,
                     DiseaseName = i.Name,
                     DiseaseDescription = i.Description,
-                    //Products = i.ProductDiseases.Select(pi => new
-                    //{
-                    //    ProductId = pi.Product.Id,
-                    //    IllnessName = pi.Product.Name
-                    //}).ToList()
+      
                     Symptoms = i.DiseaseSymtpoms.Select(ils => new
                     {
                         IllnessSymptoms = ils.Symptom.Name
                     }).ToList(),
-                    //Products = i.ProductDiseases.Select(pr => new
-                    //{
-                    //    ProductId = pr.Product.Id,
-                    //    ProductName = pr.Product.Name
-                    //}).ToList()
                 }).ToList();
             
 
@@ -86,6 +73,8 @@ namespace AgrochemicalAPI.Controllers
             return Ok(illness);
         }
 
+
+        [Authorize(Roles = "Admin")]
         // PUT: api/Disease/5
         [HttpPut("{id}")]
         public async Task<IActionResult> PutIllness(int id, Disease illness)
@@ -116,6 +105,8 @@ namespace AgrochemicalAPI.Controllers
             return NoContent();
         }
 
+
+        [Authorize(Roles = "Admin")]
         // POST: api/Disease
         [HttpPost]
         public async Task<ActionResult<Disease>> PostIllness(Disease illness)
@@ -126,6 +117,8 @@ namespace AgrochemicalAPI.Controllers
             return CreatedAtAction("GetIllness", new { id = illness.Id }, illness);
         }
 
+
+        [Authorize(Roles = "Admin")]
         // DELETE: api/Disease/5
         [HttpDelete("{id}")]
         public async Task<ActionResult<Disease>> DeleteIllness(int id)

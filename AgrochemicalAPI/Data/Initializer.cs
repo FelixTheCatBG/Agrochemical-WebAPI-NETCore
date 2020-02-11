@@ -44,7 +44,15 @@ namespace AgrochemicalAPI.Data
                     new ProductCategory() {Name = "Herbecide"},
                     new ProductCategory() {Name = "Insecticide"}
             };
+            var manufacturers = new[]
+{
+                    new Manufacturerr() {Name = "Albaugh"},
+                    new Manufacturerr() {Name = "SC"},
+                    new Manufacturerr() {Name = "FMC"},
+                    new Manufacturerr() {Name = "Arysta"},
+            };
 
+            //Seeding with products
             var products = new[]
             {
                 new Product() {
@@ -55,7 +63,8 @@ namespace AgrochemicalAPI.Data
                     MechanismOfAction="A combination of two active substances with a different mode of action. " +
                     "Petoxamide is a systemic herbicide in the group of chloracetamides that is taken up by the roots of a sprouting plant." +
                     " Petoxamide inhibits weed emergence by inhibiting long-chain fatty acid synthesis and inhibiting cell division.",
-                    ProductCategory=productCategories[0]
+                    ProductCategory=productCategories[0],
+                    Manufacturerr= manufacturers[0]
                 },
                 new Product() {
                     Name="Domnik 250",
@@ -63,7 +72,8 @@ namespace AgrochemicalAPI.Data
                     Description="DOMNIK 250 EB is a systemic triazole fungicide for use in vineyards.",
                     Manufacturer = "SC",
                     MechanismOfAction="Systemic strobilurin fungicide with protective, curative and eradicating action",
-                    ProductCategory=productCategories[0]
+                    ProductCategory=productCategories[0],
+                     Manufacturerr= manufacturers[1]
                 },
                 new Product() {
                     Name="Impact 25 SK",
@@ -71,7 +81,8 @@ namespace AgrochemicalAPI.Data
                     Manufacturer = "FMC",
                     Description="Description1",
                     MechanismOfAction="Systemic strobilurin fungicide with protective, curative and eradicating action",
-                    ProductCategory=productCategories[0]
+                    ProductCategory=productCategories[0],
+                    Manufacturerr= manufacturers[2]
                 },
                 new Product() {
                     Name="Buzin",
@@ -79,7 +90,8 @@ namespace AgrochemicalAPI.Data
                     Description="Description1",
                     Manufacturer = "SC",
                     MechanismOfAction="Systemic strobilurin fungicide with protective, curative and eradicating action",
-                    ProductCategory=productCategories[1]
+                    ProductCategory=productCategories[1],
+                    Manufacturerr= manufacturers[1]
                 },
                 new Product() {
                     Name="Nero ™ EC",
@@ -87,7 +99,8 @@ namespace AgrochemicalAPI.Data
                     Manufacturer = "FMC",
                     Description="Description1",
                     MechanismOfAction="Systemic strobilurin fungicide with protective, curative and eradicating action",
-                    ProductCategory=productCategories[1]
+                    ProductCategory=productCategories[1],
+                    Manufacturerr= manufacturers[2]
                 },
                 new Product() {
                     Name="CLIOFAR 600 SL",
@@ -95,7 +108,8 @@ namespace AgrochemicalAPI.Data
                     Manufacturer = "Arysta",
                     Description="Description1",
                     MechanismOfAction="Systemic strobilurin fungicide with protective, curative and eradicating action",
-                    ProductCategory=productCategories[1]
+                    ProductCategory=productCategories[1],
+                    Manufacturerr= manufacturers[3]
                 },
                 new Product() {
                     Name="DOMINATOR ULTRA",
@@ -103,7 +117,8 @@ namespace AgrochemicalAPI.Data
                     Description="Description1",
                     Manufacturer= "Albaugh",
                     MechanismOfAction="Systemic strobilurin fungicide with protective, curative and eradicating action",
-                    ProductCategory=productCategories[1]
+                    ProductCategory=productCategories[1],
+                    Manufacturerr= manufacturers[0]
                 },
                 new Product() {
                     Name="FASTRIN 15 VG",
@@ -111,7 +126,8 @@ namespace AgrochemicalAPI.Data
                     Description="Description1",
                     Manufacturer = "SC",
                     MechanismOfAction="Non-systemic contact and gastric pyrethroid insecticide",
-                    ProductCategory=productCategories[2]
+                    ProductCategory=productCategories[2],
+                    Manufacturerr= manufacturers[1]
                 },
                 new Product() {
                     Name="CORAGEN 20 SC",
@@ -119,11 +135,12 @@ namespace AgrochemicalAPI.Data
                     Manufacturer = "FMC",
                     Description="Description1",
                     MechanismOfAction="Non-systemic contact and gastric pyrethroid insecticide",
-                    ProductCategory=productCategories[2]
+                    ProductCategory=productCategories[2],
+                    Manufacturerr= manufacturers[2]
                 },
-                new Product() {Name="Agrochemical102",Description="Description3", ProductCategory=productCategories[1]},
-                new Product() {Name="Agrochemical105",Description="Description1", ProductCategory=productCategories[1]},
-                new Product() {Name="Agrochemical106",Description="Description1", ProductCategory=productCategories[1]},
+                new Product() {Name="Agrochemical102",Description="Description3", ProductCategory=productCategories[1], Manufacturerr= manufacturers[2]},
+                new Product() {Name="Agrochemical105",Description="Description1", ProductCategory=productCategories[1], Manufacturerr= manufacturers[2]},
+                new Product() {Name="Agrochemical106",Description="Description1", ProductCategory=productCategories[1], Manufacturerr= manufacturers[2]},
             };
             context.Products.AddRange(products);
             context.SaveChanges();
@@ -187,7 +204,7 @@ namespace AgrochemicalAPI.Data
             context.SaveChanges();
 
             var diseaseSymptoms = new[]
-{
+            {
                 new DiseaseSymptom(){ Disease = diseases[0], Symptom = symptoms[0] },
                 new DiseaseSymptom(){ Disease = diseases[0], Symptom = symptoms[1] },
                 new DiseaseSymptom(){ Disease = diseases[0], Symptom = symptoms[2] },

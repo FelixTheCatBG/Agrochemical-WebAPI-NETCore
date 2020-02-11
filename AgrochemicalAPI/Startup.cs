@@ -49,6 +49,8 @@ namespace AgrochemicalAPI
             services.AddScoped<TokenModel>();
 
             services.AddDbContext<AgrochemicalDbContext>(options => options.UseSqlServer(Configuration.GetConnectionString("AgrochemicalDbContext")));
+
+            //SQLLite connection string
             //services.AddDbContext<AgrochemicalDbContext>(options => options.UseSqlite("Data Source=agrochemical.db")); 
 
             services.AddScoped<IDecisionBuilder, DecisionBuilder>();
@@ -113,7 +115,7 @@ namespace AgrochemicalAPI
             services.AddSwaggerGen(x =>
             {
             x.SwaggerDoc("v1", new Swashbuckle.AspNetCore.Swagger.Info { Title = "AgrochemicalAPI", Version = "v1"});
-                //Implement jwt into swagger
+                //Implementing JWT into swagger
                 var security = new Dictionary<string, IEnumerable<string>>
                 {
                     {"Bearer",new string[0] }
@@ -132,7 +134,7 @@ namespace AgrochemicalAPI
             //services.AddScoped<IUserService, UserService>();
         }
 
-        // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
+        // Configure the HTTP request pipeline.
         public void Configure(IApplicationBuilder app, IHostingEnvironment env, AgrochemicalDbContext context, UserManager<ApplicationUser> _userManager)
         {
             if (env.IsDevelopment())

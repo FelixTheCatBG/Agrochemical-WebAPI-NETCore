@@ -30,16 +30,23 @@ namespace AgrochemicalAPI.Controllers
 
         // GET: api/ProductCategory/5
         [HttpGet("{id}")]
-        public async Task<ActionResult<ProductCategory>> GetProductCategory(int id)
+        public IActionResult GetProductCategory([FromRoute] int id)
         {
-            var productCategory = await _context.ProductCategories.FindAsync(id);
+            var result = _context.ProductCategories
+             .Where(p => p.Id == id)
+             .Select(x => new
+             {
+                 ProductName = x.Name,
+                 Products = x.Products.Select(pr => new
+                 {
+                     Id = pr.Id,
+                     Name = pr.Name,
+                     Manufacturer = pr.Manufacturerr.Name,
+                     Description = pr.Description
+                 }).ToList()
+             }).SingleOrDefault(); 
 
-            if (productCategory == null)
-            {
-                return NotFound();
-            }
-
-            return productCategory;
+            return Ok(result);
         }
 
         // PUT: api/ProductCategory/5

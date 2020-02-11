@@ -13,7 +13,7 @@ namespace AgrochemicalAPI.Models
 
         public string ActiveIngredient { get; set; }
 
-        public string Formulation { get; set; }
+        //public string Formulation { get; set; }
 
         public string Description { get; set; }
 
@@ -26,6 +26,10 @@ namespace AgrochemicalAPI.Models
         public int ProductCategoryId { get; set; }
 
         public ProductCategory ProductCategory { get; set; }
+
+        public int ManufacturerrId { get; set; }
+
+        public Manufacturerr Manufacturerr { get; set; }
 
         public ICollection<Package> Packages { get; set; } = new HashSet<Package>();
 

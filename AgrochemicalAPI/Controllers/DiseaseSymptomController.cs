@@ -96,30 +96,6 @@ namespace AgrochemicalAPI.Controllers
             return NoContent();
         }
 
-        //// POST: api/IllnessSymptom
-        //[HttpPost]
-        //public async Task<ActionResult<IllnessSymptom>> PostIllnessSymptom(IllnessSymptom illnessSymptom)
-        //{
-        //    _context.IllnessSymptoms.Add(illnessSymptom);
-        //    try
-        //    {
-        //        await _context.SaveChangesAsync();
-        //    }
-        //    catch (DbUpdateException)
-        //    {
-        //        if (IllnessSymptomExists(illnessSymptom.DiseaseId))
-        //        {
-        //            return Conflict();
-        //        }
-        //        else
-        //        {
-        //            throw;
-        //        }
-        //    }
-
-        //    return CreatedAtAction("GetIllnessSymptom", new { id = illnessSymptom.DiseaseId }, illnessSymptom);
-        //}
-
         // DELETE: api/IllnessSymptom/5
         [HttpDelete("{id}")]
         public async Task<ActionResult<DiseaseSymptom>> DeleteIllnessSymptom(int id)

@@ -8,6 +8,7 @@ using Microsoft.EntityFrameworkCore;
 using AgrochemicalAPI.Data;
 using AgrochemicalAPI.Models;
 using Newtonsoft.Json.Linq;
+using Microsoft.AspNetCore.Authorization;
 
 namespace AgrochemicalAPI.Controllers
 {
@@ -22,6 +23,7 @@ namespace AgrochemicalAPI.Controllers
             _context = context;
         }
 
+        [AllowAnonymous]
         // GET: api/Product
         [HttpGet]
         public  IActionResult GetProducts()
@@ -32,25 +34,14 @@ namespace AgrochemicalAPI.Controllers
                     Id = p.Id,
                     Name = p.Name,
                     Description = p.Description,
-                    //Dose = p.Dose,
                     Category = p.ProductCategory.Name,
-                    //Crops = p.CropProducts.Select(cp => new
-                    //{
-                    //    Id = cp.CropId,
-                    //    Name = cp.Crop.Name,
-                    //    Category = cp.Crop.CropCategory.Name
-                    //}).ToList(),
-                    //Illnesses = p.ProductDiseases.Select(pi => new
-                    //{
-                    //   IllnessId = pi.Disease.Id,
-                    //   IllnessName = pi.Disease.Name
-                    //}).ToList()
+                    Manufacturer = p.Manufacturerr.Name,
                 }).ToList();
 
             return Ok(productsList);
         }
 
-        // GET: api/Product/5
+        [AllowAnonymous]
         [HttpGet("{id}")]
         public IActionResult GetProduct([FromRoute] int id)
         {
@@ -69,6 +60,7 @@ namespace AgrochemicalAPI.Controllers
                      { 
                      Advantage = pr.Advantage
                      }).ToList(),
+                     Manufacturer = p.Manufacturerr.Name,
                      ProductCropDisease = p.ProductCropDiseases.Select(pr => new
                      {
                          Crop = pr.Crop.Name,
@@ -92,6 +84,8 @@ namespace AgrochemicalAPI.Controllers
             return Ok(result);
         }
 
+
+        [Authorize(Roles = "Admin")]
         // PUT: api/Product/5
         [HttpPut("{id}")]
         public async Task<IActionResult> PutProduct(int id, Product product)
@@ -122,7 +116,7 @@ namespace AgrochemicalAPI.Controllers
             return NoContent();
         }
 
-        // POST: api/Product
+        [Authorize(Roles="Admin")]
         [HttpPost]
         public async Task<ActionResult> PostProduct([FromBody]Product product)
         {
@@ -137,6 +131,8 @@ namespace AgrochemicalAPI.Controllers
             return CreatedAtAction("GetProduct", new { id = product.Id }, product);
         }
 
+
+        [Authorize(Roles = "Admin")]
         // DELETE: api/Product/5
         [HttpDelete("{id}")]
         public async Task<ActionResult<Product>> DeleteProduct(int id)

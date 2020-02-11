@@ -7,9 +7,12 @@ using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using AgrochemicalAPI.Data;
 using AgrochemicalAPI.Models;
+using Microsoft.AspNetCore.Authorization;
 
 namespace AgrochemicalAPI.Controllers
 {
+
+    [Authorize(Roles = "Admin")]
     [Route("api/[controller]")]
     [ApiController]
     public class CropController : ControllerBase
@@ -21,27 +24,23 @@ namespace AgrochemicalAPI.Controllers
             _context = context;
         }
 
+        [AllowAnonymous]
         // GET: api/Crop
         [HttpGet]
         public IActionResult GetCrops()
         {
           var result =  _context.Crops
-            //.Where(cr => cr.CropCategory.Name =="Corn")
             .Select(p => new
             {
                 CropId = p.Id,
                 CropName = p.Name,
-                //CropIllnesses = p.CropDiseases.Select(cp => new
-                //{
-                //    Id = cp.CropId,
-                //    Name = cp.Crop.Name,
-                //    Symtpoms = cp.Disease.DiseaseSymtpoms.Select(ils => new { ils.Symptom.Name }).ToList()
-                //}).ToList()
+ 
             }).ToList();
 
             return Ok(result);
         }
 
+        [AllowAnonymous]
         // GET: api/Crop/5
         [HttpGet("{id}")]
         public async Task<ActionResult<Crop>> GetCrop(int id)
