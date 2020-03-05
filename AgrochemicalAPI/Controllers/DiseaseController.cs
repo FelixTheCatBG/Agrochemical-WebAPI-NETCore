@@ -32,6 +32,9 @@ namespace AgrochemicalAPI.Controllers
                           DiseaseId = i.Id,
                           DiseaseName = i.Name,
                           DiseaseDescription = i.Description,
+                          Treatment = i.Treatment,
+                          SymptomsDescription = i.SymptomsDescription,
+                          imgPath = i.imgPath,
                           Symptoms = i.DiseaseSymtpoms.Select(ils => new
                           {
                              IllnessSymptoms = ils.Symptom.Name
@@ -57,7 +60,9 @@ namespace AgrochemicalAPI.Controllers
                     DiseaseId = i.Id,
                     DiseaseName = i.Name,
                     DiseaseDescription = i.Description,
-      
+                    Treatment = i.Treatment,
+                    SymptomsDescription = i.SymptomsDescription,
+                    imgPath = i.imgPath,
                     Symptoms = i.DiseaseSymtpoms.Select(ils => new
                     {
                         IllnessSymptoms = ils.Symptom.Name

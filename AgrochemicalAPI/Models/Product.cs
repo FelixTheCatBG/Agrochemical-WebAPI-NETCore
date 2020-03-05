@@ -13,7 +13,6 @@ namespace AgrochemicalAPI.Models
 
         public string ActiveIngredient { get; set; }
 
-        //public string Formulation { get; set; }
 
         public string Description { get; set; }
 

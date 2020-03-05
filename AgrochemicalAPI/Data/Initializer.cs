@@ -58,22 +58,25 @@ namespace AgrochemicalAPI.Data
                 new Product() {
                     Name="Diagonal",
                     ActiveIngredient="Azoxystrobin 250g/l",
-                    Description="Description1",
+                    Description="Diagonal is a systemic triazole fungicide for use in vineyards. It has protective, curative and eradicating action.",
                     Manufacturer = "Albaugh",
                     MechanismOfAction="A combination of two active substances with a different mode of action. " +
                     "Petoxamide is a systemic herbicide in the group of chloracetamides that is taken up by the roots of a sprouting plant." +
                     " Petoxamide inhibits weed emergence by inhibiting long-chain fatty acid synthesis and inhibiting cell division.",
+                    HowToUseRecommendation="Do not spray if precipitation is expected within 4-5 hours after treatment. The treatment should be carried out in silence  +time, at a temperature not higher than 24 - 25 degrees. Use a clean solution for the preparation of the working solution water. " +
+                    "For maximum effect, weeds must have developed enough foliage to be able to absorb the product well and reach all growth points.When spraying vines, the treatment should be directed to the weeds so that the working solution does not fall on the green parts of the vine.Take it all precautions so that Dominator Ultra does not fall on adjacent crops to the sprayed block.",
                     ProductCategory=productCategories[0],
                     Manufacturerr= manufacturers[0]
                 },
                 new Product() {
                     Name="Domnik 250",
                     ActiveIngredient="Tebuconazole 250 g / l",
-                    Description="DOMNIK 250 EB is a systemic triazole fungicide for use in vineyards.",
+                    Description="DOMNIK 250 EB is a systemic eradicant and protective fungicide of the DMI group, active against various fungal diseases on cucurbits, fruit and ornamentals.",
                     Manufacturer = "SC",
-                    MechanismOfAction="Systemic strobilurin fungicide with protective, curative and eradicating action",
-                    ProductCategory=productCategories[0],
-                     Manufacturerr= manufacturers[1]
+                    MechanismOfAction=" Domnik is  systemic action fungicide. The product suppresses the development of the pathogen by inhibiting the ergosterol biosynthesis required to form the cell membrane. As a result, structural and functional abnormalities in the cell wall of the fungal pathogen are induced and growth of the hyphae is stopped. As a fungicide with systemic action, IMPACT 25 SK penetrates the leaf mass and spreads throughout the plant through the conducting system, protecting the new growth as well.",                   
+                    HowToUseRecommendation="Consumption of working solution: 15-20 l / ha .Domnik 25 SK should be applied before the onset of the first signs of the disease, or when the disease has covered no more than 2% of the leaf mass. Ensure full spraying of plants for maximum effect.Prepare the working solution immediately before spraying. Compatibility: Domnik 25 SC is mixed with most insecticides and fungicides used in practice, but before being mixed with another product, a compatibility test should be carried out in a separate container.",
+                    ProductCategory =productCategories[0],
+                    Manufacturerr= manufacturers[1]
                 },
                 new Product() {
                     Name="Impact 25 SK",
@@ -175,8 +178,17 @@ namespace AgrochemicalAPI.Data
             //Seeding with Diseases
             var diseases = new[]
             {
-                 new Disease() {Name = "Powdery mildew", Description="Description1" },
-                 new Disease() {Name = "Brown Rust", Description="Description2" },
+                 new Disease() {Name = "Powdery mildew", Description="Common on many plants and easily recognized, powdery mildew is a fungal disease found throughout the United States. It is caused by a variety of closely related fungal species, each with a limited host range. (The fungi attacking your roses are unlikely to spread to your lilacs). Low soil moisture combined with high humidity levels at the plant surface favors this disease.",
+                 SymptomsDescription = "Symptoms usually appear later in the growing season on outdoor plants. Powdery mildew starts on young leaves as raised blister-like areas that cause leaves to curl, exposing the lower leaf surface. Infected leaves become covered with a white to gray powdery growth, usually on the upper surface; unopened flower buds may be white with mildew and may never open. Leaves of severely infected plants turn brown and drop." +
+                 " The disease prefers young, succulent growth; mature leaves are usually not affected.",
+                  Treatment ="Plant resistant cultivars in sunny locations whenever possible.Prune or stake plants to improve air circulation." +
+                     " Make sure to disinfect your pruning tools (one part bleach to 4 parts water) after each cut.Remove diseased foliage from the plant and clean up fallen debris on the ground.Use a thick layer of mulch or organic compost to cover the soil after you have raked and cleaned it well. Mulch will prevent the disease spores from splashing back up onto the leaves." +
+                 "Milk sprays, made with 40% milk and 60% water, are an effective home remedy for use on a wide range of plants.  + " +
+                 "For best results, spray plant leaves as a preventative measure every 10-14 days.Wash foliage occasionally to disrupt the daily spore-releasing cycle. Neem oil and PM Wash, used on a 7 day schedule," +
+                 " will prevent fungal attack on plants grown indoors.", imgPath= "mildew"},
+                 new Disease() {Name = "Brown Rot", Description="The most common fungal disease affecting the blossoms and fruit of almonds, apricots, cherries, peaches and plums. Brown rot (Monilinia fructicola) overwinters in mummified fruit (on the tree and on the ground) and infected twigs.", 
+                     SymptomsDescription = "The disease first infects blossoms in spring and grows back into the small branches to cause cankers that can kill stems. Large numbers of flower-bearing stems are killed when the disease is severe. Dead flowers often remain attached into the summer. Developing or mature fruits show circular or brown spots that spread rapidly over the surface and light gray masses of spores are produced on the rotted areas. Rotted tissue remains relatively firm and dry.",
+                     Treatment ="Choose resistant varieties whenever possible.Prompt removal and destruction of infected plant parts helps breaks the life cycle of the disease in individual trees and small orchards, and may be sufficient to keep brown rot below damaging levels.It is important to rake up and remove any fallen fruit or debris from under trees.Prune trees occasionally to improve air circulation. Also, water from below to keep from wetting blossoms, foliage and fruit.", imgPath= "rot"},
                  new Disease() {Name = "Yellow Rust", Description="Description3" },
                  new Disease() {Name = "Rusts", Description="Description3" },
                  new Disease() {Name = "Church sporosis", Description="Description4" },
@@ -190,12 +202,12 @@ namespace AgrochemicalAPI.Data
             //Seeding with Crops
             var symptoms = new[]
             {
-                 new Symptom() {Name = "z", Description="Descriptionz" },
-                 new Symptom() {Name = "White leaf", Description="Description1" },
-                 new Symptom() {Name = "Yellow leaf", Description="Description2" },
-                 new Symptom() {Name = "Dots", Description="Description3" },
-                 new Symptom() {Name = "Small leaf", Description="Description1" },
-                 new Symptom() {Name = "SmthElse", Description="Description1" },
+                 new Symptom() {Name = "oval pustules with powdery contents", Description="Descriptionz" },
+                 new Symptom() {Name = "darker-coloured winter spore deposit", Description="Description1" },
+                 new Symptom() {Name = "epidermis of the leaf", Description="Description2" },
+                 new Symptom() {Name = "raised blister-like areas", Description="Description3" },
+                 new Symptom() {Name = "curled leafs", Description="Description1" },
+                 new Symptom() {Name = "white to gray powdery growth, usually on the upper surface", Description="Description1" },
                  new Symptom() {Name = "f", Description="Description2" },
                  new Symptom() {Name = "g", Description="Description3" },
                  new Symptom() {Name = "h", Description="Description1" },
